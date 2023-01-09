@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block custom-css %}
+  <link rel="stylesheet" href="{% static 'css/formulaire.css' %}">
+{% endblock custom-css %}
+{% block titre %} MAGBOARD - Chiffre d'affaire {% endblock%}
+
+
+{% block content %}
+
+<div class="formulaire">
+    <h1>REMPLIR MON FORMULAIRE QUOTIDIEN</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="value">Enter Value:</label>
+        <input type="number" name="magasin_value" required>
+        <button type="submit" id="submitValue" onclick="func()">Submit</button>
+    </form>
+</div>
+
+<script>
+  
+  function func(){
+    var button = document.getElementById("submitValue")
+    button.classList.add("disabled")
+
+  }
+ 
+</script>
+{% endblock %}

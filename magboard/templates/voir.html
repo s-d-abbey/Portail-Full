@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block custom-css %}
+  <link rel="stylesheet" href="{% static 'css/voir.css' %}">
+{% endblock custom-css %}
+{% block content %}
+
+  <section class="voir">
+    <div class="magasin-user">
+        <div class="title">
+            <h1>Magasin Profile Info</h1>
+        </div>
+  
+        <h3><div class="rounded">{{mag_user.user|first|upper}}</div>{{mag_user.user}}</h3>
+        <span>Email: <a href="mailto: {{mag_user.email}}">{{mag_user.email}}</a></span>
+        <span>Number: <a href="tel: {{mag_user.number}}">{{mag_user.number}}</a></span>
+    </div>
+    <div class="work-details">
+        {% for mag in magasin %}
+        <h1>Work Details</h1>
+        <p class="week">Week: {{mag.week}}</p>
+        
+        <table class="table">
+            <thead>
+              <tr>
+                  <th class="data-label"><h1>Day</h1></th>
+                  <th class="data-label"><h1>Value</h1></th>
+              </tr>
+            </thead>
+            <tbody>
+               {% for value  in magasin_value %}
+                {% if value.week == mag.week %}
+                <tr>          
+                    <td scope="row" data-label="n°">{{value.name_of_day}}</td>
+                    <td scope="row" data-label="magasin">{{value.value}}</td>
+                  </tr>
+                {% endif %}
+               {% endfor %}
+               
+            </tbody>
+        </table>
+        {% endfor %}
+    </div>
+  </section>
+{% endblock content %}

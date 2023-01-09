@@ -1,0 +1,247 @@
+/*Attendance List serction  */
+
+.attendance {
+  margin-top: 10px;
+  text-transform: capitalize;
+  box-sizing: border-box;
+  margin-right: 10px;
+}
+.attendance .attendance-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  font-family: "Poppins";
+  margin-bottom: 2%;
+}
+.attendance .attendance-list {
+  width: fit-content;
+  padding: 10px;
+  margin-top: 10px;
+  background: var(--color-white);
+  border-radius: 10px;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
+.attendance .attendance-list .table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 15px;
+ 
+  overflow: hidden;
+  border-radius: 5px 5px 0 0;
+  width: fit-content;
+}
+
+.attendance .attendance-list .table thead tr {
+  color: var(--color-white);
+  background: #34AF6D;
+  text-align: center;
+  font-weight: bold;
+  
+}
+.attendance .attendance-list .table thead tr th {
+  /* padding: 12px 15px; */
+  padding: 1em 1.3em;
+}
+.attendance .attendance-list .table tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+.attendance .attendance-list .table tbody tr:nth-of-type(odd) {
+  background: #f3f3f3;
+}
+.attendance .attendance-list .table tbody tr:last-of-type {
+  border-bottom: 2px solid #4AD489;
+}
+.attendance .attendance-list .table tbody tr td {
+  padding: 0.8rem;
+  text-align: center;
+}
+.attendance .attendance-list .table tbody tr.active {
+  font-weight: bold;
+  color: #4AD489;
+}
+.attendance .attendance-list .table button, .attendance .attendance-list .btn {
+  padding: 6px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid #4AD489;
+  color: #4AD489;
+}
+.attendance .attendance-list .table button:hover, .attendance-list .btn:hover {
+  background: #4AD489;
+  color: var(--color-white);
+  transition: 0.5rem;
+}
+
+/* Pagination */
+.pagination{
+  display: flex;
+  width: fit-content;
+  margin-top: 5%;
+  border: 1px solid #34AF6D;
+ align-items: center;
+ justify-content: center;
+ height: 3rem;
+  box-sizing: border-box;
+}
+.pagination li{
+  list-style: none;
+  width: 3rem;
+  height: 100%;
+  border: 1px solid #34AF6D;
+  box-sizing: border-box;
+  display: flex;
+ align-items: center;
+ justify-content: center;
+}
+.pagination li span{
+ width: 100%;
+ height: 100%;
+ text-align: center;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ cursor: pointer;
+}
+.pagination li a{
+  text-decoration: none;
+  box-sizing: border-box;
+  text-align: center;
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+ align-items: center;
+ justify-content: center;
+ color: black;
+
+  
+}
+.pagination li.active  span{
+  background: #34AF6D !important;
+  color: white;
+}
+
+
+
+
+body.dark .attendance {
+  color: white !important;
+}
+body.dark .attendance .attendance-list {
+  background: black;
+  box-shadow: 0 0px 15px 3px rgba(255, 255, 255, 0.048);
+}
+body.dark .attendance .attendance-list .table tbody tr:nth-of-type(odd) {
+  background: black;
+}
+body.dark .attendance .attendance-list .table button, .attendance-list .btn {
+  color: white;
+  font-family: "Montserrat";
+  font-weight: bold;
+}
+
+body.dark .pagination li a{
+
+ color: white;
+  
+}
+
+
+@media only screen and (max-width: 1024px) {
+  .attendance {
+    width: 100%;
+    margin-top: 10px;
+    text-transform: capitalize;
+    box-sizing: border-box;
+    margin-right: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .attendance .attendance-title {
+    font-size: 1.2em !important;
+    font-weight: bold;
+    font-family: "Poppins";
+    margin-bottom: 2%;
+  }
+  .attendance .attendance-list {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background: var(--color-white);
+    border-radius: 10px;
+    font-size: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+  }
+  .attendance .attendance-list h1 {
+    font-size: 1em;
+  }
+  .attendance .attendance-list .table-container {
+    width: 100%;
+    display: flex;
+    overflow: scroll;
+  }
+  .attendance .attendance-list .table-container .table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 15px;
+    width: 100% !important;
+    border-radius: 5px 5px 0 0;
+  }
+  .attendance .attendance-list .table-container .table thead tr {
+    color: var(--color-white);
+    background: #34AF6D;
+    text-align: left;
+    font-weight: bold;
+  }
+  .attendance .attendance-list .table-container .table thead tr th {
+    padding: 12px 15px;
+  }
+  .attendance .attendance-list .table-container .table tbody tr {
+    border-bottom: 1px solid #ddd;
+  }
+  .attendance .attendance-list .table-container .table tbody tr:nth-of-type(odd) {
+    background: #f3f3f3;
+  }
+  .attendance .attendance-list .table-container .table tbody tr:last-of-type {
+    border-bottom: 2px solid #4AD489;
+  }
+  .attendance .attendance-list .table-container .table tbody tr td {
+    padding: 0.8rem;
+    text-align: center;
+  }
+  .attendance .attendance-list .table-container .table tbody tr.active {
+    font-weight: bold;
+    color: #4AD489;
+  }
+  .attendance .attendance-list .table-container .table button, .table .btn {
+    padding: 6px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid #4AD489;
+    color: #4AD489;
+  } 
+  .attendance .attendance-list .table-container .table button:hover, .table .btn:hover {
+    background: #4AD489;
+    color: var(--color-white);
+    transition: 0.5rem;
+  }
+  body.dark .attendance {
+    color: white !important;
+  }
+  body.dark .attendance .attendance-list {
+    background: black;
+    box-shadow: 0 0px 15px 3px rgba(255, 255, 255, 0.048);
+  }
+  body.dark .attendance .attendance-list .table tbody tr:nth-of-type(odd) {
+    background: black;
+  }
+  body.dark .attendance .attendance-list .table button, .table .btn {
+    color: white;
+    font-family: "Montserrat";
+    font-weight: bold;
+  }
+}/*# sourceMappingURL=historique.css.map */

@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block custom-css %}
+    <link rel="stylesheet" href="{% static 'css/historiqua.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock custom-css %}
+{% block title %}Historique {% endblock%}
+
+{% block content %}
+
+
+<section class="attendance">
+  <!--Admin-->
+  {% if request.user.role == "ADMIN" or request.user.is_staff or request.user.role == "DIRECTION" or request.user.role == "SUPERVISEUR" %}
+        {% for magasin in magasins  %}
+            <h1 class="attendance-title">Magasin - {{magasin.user}}</h1>
+            {% for magasin_w in magasin_weekly  %}
+            <div class="attendance-title">Week{{magasin_w.week}}</div>
+
+            <div class="attendance-list">
+              <h1>Historique hebdomadaire</h1>
+              <div class="table-container">
+                
+                    <table class="table">
+                        <thead>
+                          <tr>
+                              <th class="data-label"><h1>N°</h1></th>
+                              <th class="data-label"><h1>Magasin</h1></th>
+                              {% for magasin_v in magasin_value %}
+                              {% if magasin_v.magasin == magasin %}
+                              {% if magasin_v.week == magasin_w.week %}
+                              <th class="data-label"><h1>{{magasin_v.name_of_day}}</h1></th>
+                              {% endif %}
+                              {% endif %}
+                              {% endfor %}
+                              <th class="data-label"><h1>Total</h1></th>
+                              <th class="data-label"><h1>Details</h1></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <tr>          
+                              <td scope="row" data-label="n°">{{forloop.counter}}</td>
+                              <td scope="row" data-label="magasin">{{magasin.user}}</td>
+                                  
+                                    {% for magasin_v in magasin_value %}
+                                  
+                                      {% if magasin_v.magasin == magasin %}
+                                      {% if magasin_v.week == magasin_w.week %}
+                                      <td data-label="{{magasin_v.name_of_day}}">{{magasin_v.value}}</td>
+                                      {% endif%}
+                                      {% else %}
+                                      
+                                      {% endif %}
+                                    {% endfor %}
+                                    
+                                                     
+                               {% for total in total_magasin_value %}
+                                
+                               
+                               {% if total.week == magasin_w.week %}
+                                {% if total.mag == magasin.user %}
+                                <td scope="row" data-label="magasin">{{total.value.value__sum}}</td>
+                                {% endif %}
+                              
+                               {% endif %}
+                              
+                            
+                               {% endfor %}
+                    
+                                  
+                                    <td data-label="View"><a class="btn" href="{% url 'voir' magasin.user magasin_w.week %}" class="btn">Voir</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                  
+              </div>
+            </div>
+            {% endfor %}
+        {% endfor %}  
+  {% endif %}
+
+  <!--Magasin-->
+  {% if request.user.role == "MAGASIN" %}
+      {% for magasin in magasins %}
+      <div class="attendance-title" >Week {{magasin.week}}</div>
+
+      <div class="attendance-list">
+        <h1>Historique hebdomadaire</h1>
+        <div class="table-container">
+          
+              <table class="table">
+                  <thead>
+                    <tr>
+                        <th class="data-label"><h1>N°</h1></th>
+                        <th class="data-label"><h1>Magasin</h1></th>
+                        {% for magasin_v in magasin_value %}
+                        {% if magasin_v.magasin == magasin.magasin %}
+                          {% if magasin_v.week == magasin.week%}
+                          <th class="data-label"><h1>{{magasin_v.name_of_day}}</h1></th>
+                          {% endif %}
+                        {% endif %}
+                        {% endfor %}
+                        <th class="data-label"><h1>Total</h1></th>
+                        <th class="data-label"><h1>Details</h1></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <tr>          
+                        <td scope="row" data-label="n°">{{forloop.counter}}</td>
+                        <td scope="row" data-label="magasin">{{magasin.magasin.user}}</td>
+                            
+                              {% for magasin_v in magasin_value %}
+                            
+                                {% if magasin_v.magasin == magasin.magasin %}
+                                  {% if magasin_v.week  == magasin.week %}
+                                  <td data-label="{{magasin_v.name_of_day}}">{{magasin_v.value}}</td>
+                                  {% endif %}
+                                  
+                                
+                                {% endif %}
+                                
+                              {% endfor %}
+                              
+                            
+                               {% for total in total_magasin_value %}
+                                
+                               
+                               {% if total.week == magasin.week %}
+                               <td scope="row" data-label="magasin">{{total.value.value__sum}}</td>
+                              
+                               {% endif %}
+                              
+                            
+                               {% endfor %}
+                    
+                     
+                            
+                              
+                        <td data-label="View"><a class="btn" href="{% url 'voir' magasin.magasin.user magasin.week %}" class="btn">Voir</a></td>
+                      </tr>
+                  </tbody>
+              </table>
+            
+        </div>
+      </div>
+      {% endfor %}
+  {% endif %}
+
+
+  </section>
+
+
+{% if magasins.has_other_pages %}
+  <ul class="pagination">
+    {% if magasins.has_previous %}
+      <li><a href="?page={{ magasins.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in magasins.paginator.page_range %}
+      {% if magasins.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if magasins.has_next %}
+      <li><a href="?page={{ magasins.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+  
+{% endblock %}
