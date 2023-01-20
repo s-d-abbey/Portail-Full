@@ -11,7 +11,7 @@ from matplotlib.style import context
 from authentication.models import *
 from magboard.forms import MagasinForm
 
-from .models import Magasin_value, Magasin_weekly
+from .models import Days, Magasin_day_value, Magasin_value, Magasin_weekly
 
 
 @login_required(login_url='login')
@@ -19,7 +19,7 @@ def historiqueView(request):
     if request.user.role == "MAGASIN":
         magasin_obj = Magasin_weekly.objects.filter(magasin__user=request.user)
         page = request.GET.get('page', -1)
-       
+        days = Days.objects.all()
        
         value = Magasin_value.objects.filter(magasin__user=request.user)
         rough_week_list = []
@@ -58,18 +58,23 @@ def historiqueView(request):
         except EmptyPage:
             magasin = paginator.page(paginator.num_pages)
         
-        return render(request, 'historique.html', {'magasins': magasin, 'magasin_value': value, 'total_magasin_value': wvalue_list})
+        return render(request, 'historique.html', {'magasins': magasin, 'magasin_value': value, 'total_magasin_value': wvalue_list, 'days': days})
     if request.user.role == "ADMIN" or request.user.is_staff or request.user.role == "DIRECTION":
-        magasin_obj = Magasin.objects.all()
-        
+        magasin_obj = Magasin_day_value.objects.all()
+        ori_magasin = Magasin.objects.all()
         page = request.GET.get('page', -1)
+       
         mvalue = []
         wvalue = []
+        mdvalue = []
+        magvalue = []
+        for mag in ori_magasin:
+            if mag.user in magasin_obj:
+                pass
+            else:
+                magvalue.append(mag)
 
-
-        
-
-
+        print(magvalue)
 
 
 
@@ -78,12 +83,78 @@ def historiqueView(request):
 
 
         for item in magasin_obj:
-            value = Magasin_value.objects.filter(magasin=item)
+            magasin_day_value = Magasin_day_value.objects.filter(magasin=item.magasin)
+            mdvalue += magasin_day_value
+            value = Magasin_value.objects.filter(magasin=item.magasin)
             mvalue += value
             
-            week_value = Magasin_weekly.objects.filter(magasin=item)
+            week_value = Magasin_weekly.objects.filter(magasin=item.magasin)
             wvalue += week_value
         
+
+        rough_week_list = []
+       
+        for iteme in mvalue:
+            week = iteme.week
+            rough_week_list.extend([week])
+       
+        week_list = []
+        for week in rough_week_list:
+            if week not in week_list:
+                week_list.append(week)
+        
+        wvalue_list = []
+        for w in week_list:
+            for pers in Magasin.objects.all():
+                magas = Magasin_value.objects.filter(magasin=pers, week=w)
+        
+                wwvalue = magas.aggregate(Sum('value'))
+          
+                final = {'mag': pers.user,
+                    'week': w,
+                    'value': wwvalue   
+                    }
+                
+                wvalue_list.append(final)
+        
+       
+        wlist = len(week_list)
+        
+        
+
+
+        paginator = Paginator(magasin_obj, 1)
+        w_paginator = Paginator(wvalue, 1)
+        weekpaginator = Paginator(week_list, 1)
+        wpage = request.GET.get('page', weekpaginator.num_pages)
+        try:
+            magasin = magasin_obj
+            weekpag = weekpaginator.page(wpage)
+            w_magasin = w_paginator.page(page)
+  
+        except PageNotAnInteger:
+            magasin = paginator.page(1)
+            w_magasin = w_paginator.page(1)
+            weekpag = weekpaginator.page(1)
+        except EmptyPage:
+            magasin = paginator.page(paginator.num_pages)
+            w_magasin = w_paginator.page(w_paginator.num_pages)
+        
+        return render(request, 'historique.html', {'magasins': magasin, 'magasin_value': mvalue, 'magasin_weekly':w_magasin, 'total_magasin_value': wvalue_list, 'magasin_day_value': mdvalue, 'week_no': wlist, 'weekpag': weekpag})
+    if request.user.role == "SUPERVISEUR":
+        magasin_obj = Magasin_day_value.objects.filter(magasin__superviseur__user=request.user)
+       
+        page = request.GET.get('page', -1)
+        mvalue = []
+        wvalue = []
+        mdvalue = []
+        for item in magasin_obj:
+            magasin_day_value = Magasin_day_value.objects.filter(magasin=item.magasin)
+            mdvalue += magasin_day_value
+            value = Magasin_value.objects.filter(magasin=item.magasin)
+            mvalue += value
+            week_value = Magasin_weekly.objects.filter(magasin=item.magasin)
+            wvalue += week_value
 
         rough_week_list = []
        
@@ -98,7 +169,7 @@ def historiqueView(request):
        
         wvalue_list = []
         for w in week_list:
-            for pers in magasin_obj:
+            for pers in Magasin.objects.all():
                 magas = Magasin_value.objects.filter(magasin=pers, week=w)
         
                 wwvalue = magas.aggregate(Sum('value'))
@@ -109,43 +180,16 @@ def historiqueView(request):
                     }
                 
                 wvalue_list.append(final)
-        print(wvalue_list)
-
-
-
-
-
-
-        paginator = Paginator(magasin_obj, 1)
-        w_paginator = Paginator(wvalue, magasin_obj.count())
-        try:
-            magasin = paginator.page(page)
-            w_magasin = w_paginator.page(page)
-            
-        except PageNotAnInteger:
-            magasin = paginator.page(1)
-            w_magasin = w_paginator.page(1)
-        except EmptyPage:
-            magasin = paginator.page(paginator.num_pages)
-            w_magasin = w_paginator.page(w_paginator.num_pages)
-        
-        return render(request, 'historique.html', {'magasins': magasin, 'magasin_value': mvalue, 'magasin_weekly':w_magasin, 'total_magasin_value': wvalue_list})
-    if request.user.role == "SUPERVISEUR":
-        magasin_obj = Magasin.objects.filter(superviseur__user=request.user)
-      
-        page = request.GET.get('page', -1)
-        mvalue = []
-        wvalue = []
-        for item in magasin_obj:
-            value = Magasin_value.objects.filter(magasin=item)
-            mvalue += value
-            week_value = Magasin_weekly.objects.filter(magasin=item)
-            wvalue += week_value
+        wlist = len(week_list)
         paginator = Paginator(magasin_obj, 1)
         w_paginator = Paginator(wvalue, 1)
+        weekpaginator = Paginator(week_list, 1)
+        wpage = request.GET.get('page', weekpaginator.num_pages)
         try:
-            magasin = paginator.page(page)
+            magasin = magasin_obj
+            weekpag = weekpaginator.page(wpage)
             w_magasin = w_paginator.page(page)
+
             
         except PageNotAnInteger:
             magasin = paginator.page(1)
@@ -154,9 +198,9 @@ def historiqueView(request):
             magasin = paginator.page(paginator.num_pages)
             w_magasin = w_paginator.page(w_paginator.num_pages)
         
-        return render(request, 'historique.html', {'magasins': magasin, 'magasin_value': mvalue, 'magasin_weekly':wvalue})
+        return render(request, 'historique.html', {'magasins': magasin, 'magasin_value': mvalue, 'magasin_weekly':w_magasin, 'magasin_day_value': mdvalue, 'total_magasin_value': wvalue_list,'week_no': wlist, 'weekpag': weekpag})
     magasin = Magasin.objects.all()
-    print(magasin)
+   
     mvalue = []
     for item in magasin:
         value = Magasin_value.objects.filter(magasin=item)
@@ -174,6 +218,20 @@ def formulaireView(request):
                            extra_tags='alert alert-warning alert-dismissible fade show')
             return redirect('historique')
         Magasin_value.objects.create(magasin=magasin_u, value=value)
+        if date.today().isoweekday() == 1:
+            Magasin_day_value.objects.create(magasin=magasin_u, mon=value)
+        if date.today().isoweekday() == 2:
+            Magasin_day_value.objects.create(magasin=magasin_u, tue=value)
+        if date.today().isoweekday() == 3:
+            Magasin_day_value.objects.create(magasin=magasin_u, wed=value)
+        if date.today().isoweekday() == 4:
+            Magasin_day_value.objects.create(magasin=magasin_u, thur=value)
+        if date.today().isoweekday() == 5:
+            Magasin_day_value.objects.create(magasin=magasin_u, fri=value)
+        if date.today().isoweekday() == 6:
+            Magasin_day_value.objects.create(magasin=magasin_u, sat=value)
+        if date.today().isoweekday() == 7:
+            Magasin_day_value.objects.create(magasin=magasin_u, sun=value)
         # if Magasin_weekly.objects.filter(magasin=magasin_u, week=date.today().isocalendar()[1]).exists():
         #     return redirect('historique')
         Magasin_weekly.objects.create(magasin=magasin_u, value=value)
@@ -187,7 +245,7 @@ def voirView(request, magasin, no):
     # paginator = Paginator(magasine, 1)
     # try:
     #     magas = paginator.page(page)
-    #     print(magas)
+    #    
         
     # except PageNotAnInteger:
     #     magas = paginator.page(1)
