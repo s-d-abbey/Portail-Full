@@ -215,3 +215,5 @@ def profileView(request):
         user = Comptabilite.objects.get(user=request.user)
 
     return render(request, "profile.html", {'user': user})
+
+

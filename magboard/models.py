@@ -58,3 +58,4 @@ class Magasin_value(models.Model):
         
         return f"{self.magasin.user} - {self.week} - {day_name} - {self.value}"
 
+
