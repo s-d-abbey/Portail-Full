@@ -26,7 +26,7 @@ class User(AbstractUser):
         (RH, 'RH'),
     )
     role = models.CharField(max_length=30, choices=ROLE_CHOICES, verbose_name='ROLE')
-
+    code = models.CharField(max_length=3)
 
           
 class Admin(models.Model):
@@ -134,6 +134,7 @@ class Magasin(models.Model):
         ("", '----'),
         (MAGASIN, 'MAGASIN')
     )
+    code = models.CharField(max_length=3)
     user = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
     role = models.CharField(max_length=50, choices=ROLE_CHOICES, default="MAGASIN")
@@ -149,7 +150,7 @@ class Magasin(models.Model):
     def addGroup(sender, instance, created, **kwargs):
         if created:
             if instance.role == "MAGASIN":
-                User.objects.create_user(username=instance.user, role=instance.role, email=instance.email, password=instance.password)
+                User.objects.create_user(code=instance.code,username=instance.user, role=instance.role, email=instance.email, password=instance.password)
 
     @receiver(pre_delete, sender="authentication.Magasin")
     def delete_user(sender, instance, **kwargs):

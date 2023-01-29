@@ -1,65 +1,66 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %} Accueil {% endblock%}
-
+{% block custom-css %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+{% endblock custom-css %}
 
 {% block content %}
-<!-- DEBUT-->
-<div class="main-part">
-  <div class="cpanel">
-  <div class="icon-part">
-  <i class="fa fa-users" aria-hidden="true"></i><br>
-  <p>Saisie du CA</p>
+<div class="page-container">
+  <div class="page">
+    {% if request.user.role == "RH" %}
+      <div class="icon-container">
+          <a href="" draggable="true">
+              <div class="icon">
+                  <i class="fa fa-info fa-2x"></i>
+                  <span>Paie</span>
+              </div>
+          </a>
+      </div>
+    {% endif %}
+    {% if request.user.role == "SUPERVISEUR" or request.user.role == "ADMIN" or request.user.role == "DIRECTION" or request.user.role == "MAGASIN" or request.user.is_staff %}
+      <div class="icon-container">
+          <a href="{% url 'historique' %}" draggable="true">
+              <div class="icon">
+                  <i class="bx bx-history"></i>
+                  <span>Historique</span>
+              </div>
+          </a>
+      </div>
+    {% endif %}
+    {% if request.user.role == "MAGASIN" %}
+      <div class="icon-container">
+          <a href="{% url 'formulaire' %}">
+              <div class="icon">
+                  <i class="bx bx-file"></i>
+                  <span>Formulaire</span>
+              </div>
+          </a>
+      </div>
+      {% endif %}
+      {% if request.user.role == "ADMIN" or request.user.role == "DIRECTION" or request.user.is_staff %}
+      <div class="icon-container">
+        <a href="http://192.1.200.202/primweb" target="_blank" draggable="true">
+            <div class="icon">
+                <i class="bx bx-folder-open"></i>
+                <span>Primweb</span>
+            </div>
+        </a>
+      </div>
+      {% endif %}
+      <div class="icon-container">
+        <a href="http://192.1.200.183/glpi" target="_blank" draggable="true">
+            <div class="icon">
+                <i class="bx bx-folder-open"></i>
+                <span>Support Informatique</span>
+            </div>
+        </a>
+      </div>
+
+     
+     
+     
   </div>
-  <div class="card-content-part">
-  <a href="../historique/historique.html">VALIDER</a>
-  </div>
-  </div>
-  <div class="cpanel cpanel-green">
-  <div class="icon-part">
-  <i class="fa fa-users" aria-hidden="true"></i><br>
-  <p>Account</p>
-  </div>
-  <div class="card-content-part">
-  <a href="#">More Details </a>
-  </div>
-  </div>
-  <div class="cpanel cpanel-orange">
-  <div class="icon-part">
-  <i class="fa fa-bell" aria-hidden="true"></i><br>
-  <p>Alert</p>
-  </div>
-  <div class="card-content-part">
-  <a href="#">More Details </a>
-  </div>
-  </div>
-  <div class="cpanel cpanel-blue">
-  <div class="icon-part">
-  <i class="fa fa-tasks" aria-hidden="true"></i><br>
-  <p>Task</p>
-  </div>
-  <div class="card-content-part">
-  <a href="#">More Details </a>
-  </div>
-  </div>
-  <div class="cpanel cpanel-red">
-  <div class="icon-part">
-  <i class="fa fa-shopping-cart" aria-hidden="true"></i><br>
-  <p>Cart</p>
-  </div>
-  <div class="card-content-part">
-  <a href="#">More Details </a>
-  </div>
-  </div>
-  <div class="cpanel cpanel-skyblue">
-  <div class="icon-part">
-  <i class="fa fa-comments" aria-hidden="true"></i><br>
-  <p>Mentions</p>
-  </div>
-  <div class="card-content-part">
-  <a href="#">More Details </a>
-  </div>
-  </div>
-  </div>
-<!-- FIN -->
+ </div>
+ <script src="{% static 'js/index.js' %}"></script>
 {% endblock %}

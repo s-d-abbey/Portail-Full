@@ -21,3 +21,4 @@ def supportView(request):
 def paieView(request):
     return render(request, 'app_templates/paie.html')
 
+

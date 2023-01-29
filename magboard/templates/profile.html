@@ -9,12 +9,12 @@
   <section class="voir">
     <div class="magasin-user">
         <div class="title">
-            <h1>User Profile Info</h1>
+            <h1>Votre profil utilisateur</h1>
         </div>
   
         <h3><div class="rounded">{{user.user|first|upper}}</div>{{user.user}}</h3>
         <span>Email: <a href="mailto: {{request.user.email}}">{{request.user.email}}</a></span>
-        <span>Number: <a href="tel: {{user.number}}">{{user.number}}</a></span>
+        <span>Tél: <a href="tel: {{user.number}}">{{user.number}}</a></span>
         <span>Role: {{request.user.role}}</span>
     </div>
     

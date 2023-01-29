@@ -16,13 +16,35 @@ class Magasin_weekly(models.Model):
     def __str__(self):
         return f"{self.magasin.user} - {self.week}"
 
+class Days(models.Model):
+    day = models.CharField(max_length=100)
+
+class Magasin_day_value(models.Model):
+    magasin = models.ForeignKey(Magasin,  on_delete=models.CASCADE)
+    
+    week = models.IntegerField(default=date.today().isocalendar()[1])
+    mon = models.IntegerField(blank=True, null=True, default=None)
+    tue = models.IntegerField(blank=True, null=True, default=None)
+    wed = models.IntegerField( blank=True, null=True, default=None)
+    thur = models.IntegerField(blank=True, null=True, default=None)
+    fri = models.IntegerField(blank=True, null=True, default=None)
+    sat = models.IntegerField( blank=True, null=True, default=None)
+    sun = models.IntegerField( blank=True, null=True, default=None)
+
+    def __str__(self):
+        return f"{self.magasin.user} - {self.week}"
+
 class Magasin_value(models.Model):
     magasin = models.ForeignKey(Magasin,  on_delete=models.CASCADE)
     value = models.IntegerField()
     day = models.DateField(default=date.today)
     week = models.IntegerField(default=date.today().isocalendar()[1])
+    
+    
     class Meta:
         ordering = ['day']
+    
+
     def name_of_day(self):
         if self.day.isoweekday() == 7:
             return "Dimanche"

@@ -19,7 +19,7 @@ urlpatterns = [
     #Magboard
     path('magboard/', include('magboard.urls')), 
 
-    #Primeweb
+    #Primweb
     path('primweb/', Appviews.primwebView, name='primweb'),
 
     #Comptabilite
@@ -30,7 +30,5 @@ urlpatterns = [
 
     #Paie
     path('paie/', Appviews.paieView, name='paie'),
-
-   
 
 ]

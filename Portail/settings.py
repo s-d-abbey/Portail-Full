@@ -37,7 +37,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.1.1', '127.0.0.1','0.0.0.0', 'localhost', '192.1.200.183']
 
-# CSRF_TRUSTED_ORIGINS = ['https://d75c-154-160-23-243.eu.ngrok.io']
+#CSRF_TRUSTED_ORIGINS = ['https://57c3-197-251-205-97.eu.ngrok.io']
 
 
 # Application definition
@@ -152,8 +152,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join("/static/")
-
+#STATIC_ROOT = os.path.join("static/")
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
