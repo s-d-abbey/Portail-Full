@@ -63,20 +63,12 @@ def historiqueView(request):
         magasin_obj = Magasin_day_value.objects.all()
         ori_magasin = Magasin.objects.all()
         page = request.GET.get('page', -1)
+        
        
         mvalue = []
         wvalue = []
         mdvalue = []
-        magvalue = []
-        for mag in ori_magasin:
-            if mag.user in magasin_obj:
-                pass
-            else:
-                magvalue.append(mag)
-
-        print(magvalue)
-
-
+      
 
 
 
@@ -104,7 +96,9 @@ def historiqueView(request):
                 week_list.append(week)
         
         wvalue_list = []
+        other_mag = []
         for w in week_list:
+            
             for pers in Magasin.objects.all():
                 magas = Magasin_value.objects.filter(magasin=pers, week=w)
         
@@ -116,22 +110,26 @@ def historiqueView(request):
                     }
                 
                 wvalue_list.append(final)
+            null_magasin = ori_magasin.exclude(magasin_value__week=w)
+            fin = {'week': w,
+                'list': null_magasin}
+            other_mag.append(fin)
         
        
-        wlist = len(week_list)
         
         
-
+        print(other_mag)
 
         paginator = Paginator(magasin_obj, 1)
         w_paginator = Paginator(wvalue, 1)
         weekpaginator = Paginator(week_list, 1)
         wpage = request.GET.get('page', weekpaginator.num_pages)
+        wlist = len(wvalue_list)
         try:
             magasin = magasin_obj
             weekpag = weekpaginator.page(wpage)
             w_magasin = w_paginator.page(page)
-  
+            
         except PageNotAnInteger:
             magasin = paginator.page(1)
             w_magasin = w_paginator.page(1)
@@ -140,10 +138,10 @@ def historiqueView(request):
             magasin = paginator.page(paginator.num_pages)
             w_magasin = w_paginator.page(w_paginator.num_pages)
         
-        return render(request, 'historique.html', {'magasins': magasin, 'magasin_value': mvalue, 'magasin_weekly':w_magasin, 'total_magasin_value': wvalue_list, 'magasin_day_value': mdvalue, 'week_no': wlist, 'weekpag': weekpag})
+        return render(request, 'historique.html', {'magasins': magasin, 'magasin_value': mvalue, 'ori_magasin': ori_magasin,'week_no': wlist, 'other_magasins': other_mag, 'magasin_weekly':w_magasin, 'total_magasin_value': wvalue_list, 'magasin_day_value': mdvalue,  'weekpag': weekpag})
     if request.user.role == "SUPERVISEUR":
         magasin_obj = Magasin_day_value.objects.filter(magasin__superviseur__user=request.user)
-       
+        ori_magasin = Magasin.objects.all()
         page = request.GET.get('page', -1)
         mvalue = []
         wvalue = []
@@ -166,9 +164,14 @@ def historiqueView(request):
         for week in rough_week_list:
             if week not in week_list:
                 week_list.append(week)
-       
+        wlist = len(week_list)
         wvalue_list = []
+        other_mag = []
         for w in week_list:
+            null_magasin = ori_magasin.exclude(magasin_value__week=w)
+            fin = {'week': w,
+                'list': null_magasin}
+            other_mag.append(fin)
             for pers in Magasin.objects.all():
                 magas = Magasin_value.objects.filter(magasin=pers, week=w)
         
@@ -180,7 +183,7 @@ def historiqueView(request):
                     }
                 
                 wvalue_list.append(final)
-        wlist = len(week_list)
+        
         paginator = Paginator(magasin_obj, 1)
         w_paginator = Paginator(wvalue, 1)
         weekpaginator = Paginator(week_list, 1)
@@ -198,7 +201,7 @@ def historiqueView(request):
             magasin = paginator.page(paginator.num_pages)
             w_magasin = w_paginator.page(w_paginator.num_pages)
         
-        return render(request, 'historique.html', {'magasins': magasin, 'magasin_value': mvalue, 'magasin_weekly':w_magasin, 'magasin_day_value': mdvalue, 'total_magasin_value': wvalue_list,'week_no': wlist, 'weekpag': weekpag})
+        return render(request, 'historique.html', {'magasins': magasin, 'ori_magasin': ori_magasin, 'magasin_value': mvalue, 'magasin_weekly':w_magasin, 'magasin_day_value': mdvalue,  'total_magasin_value': wvalue_list, 'other_magasins': other_mag, 'weekpag': weekpag, 'week_no': wlist,})
     magasin = Magasin.objects.all()
    
     mvalue = []
