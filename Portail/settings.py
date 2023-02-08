@@ -33,11 +33,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^%t#xc0m4729np+#@#ckmyfms%2&^aa6^-+8!n=!ji23623w7z'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.1.1', '127.0.0.1','0.0.0.0', 'localhost', '192.1.200.183']
 
-#CSRF_TRUSTED_ORIGINS = ['https://57c3-197-251-205-97.eu.ngrok.io']
+#CSRF_TRUSTED_ORIGINS = ['https://39b6-129-122-0-225.eu.ngrok.io']
 
 
 # Application definition
@@ -57,6 +57,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -92,9 +94,18 @@ WSGI_APPLICATION = 'Portail.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+    
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'portail_db',
+        'USER': 'postgres',
+        'PASSWORD': 'testing321',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -129,7 +140,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
 #LANGUAGE_CODE = 'fr-fr'
-LANGUAGE_CODE = 'en-en'
+LANGUAGE_CODE = 'fr-fr'
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -140,11 +151,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+#STATIC_ROOT = os.path.join("static/")
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 

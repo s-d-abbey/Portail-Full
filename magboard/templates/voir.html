@@ -2,45 +2,651 @@
 {% load static %}
 
 {% block custom-css %}
+
   <link rel="stylesheet" href="{% static 'css/voir.css' %}">
+ 
+
 {% endblock custom-css %}
 {% block content %}
+<style>
+ 
+  .back{
+  padding-right: 3rem;
 
-  <section class="voir">
-    <div class="magasin-user">
-        <div class="title">
-            <h1>Magasin Profile Info</h1>
+  }
+  .back a{
+    padding: .2rem;
+    width: fit-content;
+    height: fit-content;
+    box-sizing: border-box;
+   background: white; 
+   display: flex;
+   border-radius: 50px 50px;
+
+  }
+
+</style>
+<div class="voir">
+
+ 
+    <!--Admin-->
+    {% if request.user.role == "ADMIN" or request.user.is_staff or request.user.role == "DIRECTION" or request.user.role == "SUPERVISEUR" %}
+           
+    {% for magasin_w in magasin_weekly  %}
+    <div class="header">
+      <div class="control">
+        <div class="back">
+          <a href="{% url 'home' %}">
+            <img src="{% static 'images/icons8-go-back.png' %}" alt="">
+          </a>
         </div>
-  
-        <h3><div class="rounded">{{mag_user.user|first|upper}}</div>{{mag_user.user}}</h3>
-        <span>Email: <a href="mailto: {{mag_user.email}}">{{mag_user.email}}</a></span>
-        <span>Number: <a href="tel: {{mag_user.number}}">{{mag_user.number}}</a></span>
-    </div>
-    <div class="work-details">
-        {% for mag in magasin %}
-        <h1>Work Details</h1>
-        <p class="week">Week: {{mag.week}}</p>
+          <ul class="pagination">
+            {% if weekpag.has_previous %}
+            <li><a href="?page={{ weekpag.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+              <li class="disabled"><a href="#">&laquo;</a></li>
+            {% endif %}
+            {% if weekpag.has_next %}
+              <li><a href="?page={{ weekpag.next_page_number }}">&raquo;</a></li>
+            {% else %}
+              <li class="disabled"><a href="#">&raquo;</a></li>
+            {% endif %}
+          
+          </ul>
+      </div>
+      <div class="date-page">
+      
+            <span>Semaine {{magasin_w.week}}</span>
+           
+
+      </div>
+      <div class="date-control">
         
-        <table class="table">
-            <thead>
-              <tr>
-                  <th class="data-label"><h1>Day</h1></th>
-                  <th class="data-label"><h1>Value</h1></th>
-              </tr>
-            </thead>
-            <tbody>
-               {% for value  in magasin_value %}
-                {% if value.week == mag.week %}
-                <tr>          
-                    <td scope="row" data-label="n°">{{value.name_of_day}}</td>
-                    <td scope="row" data-label="magasin">{{value.value}}</td>
-                  </tr>
-                {% endif %}
-               {% endfor %}
-               
-            </tbody>
-        </table>
-        {% endfor %}
+          <li class="active" id="week-toggle">Week</li>
+          <li id="day-toggle">Today</li>
+      </div>
     </div>
-  </section>
+
+    <div class="week-content">
+      
+          <table class="table">
+              <thead>
+                <tr>
+                    <th class="data-label">N°</th>
+                    <th class="data-label">Magasin</th>
+                    <th class="data-label">Lundi</th>
+                    <th class="data-label">Mardi</th>
+                    <th class="data-label">Mercredi</th>
+                    <th class="data-label">Jeudi</th>
+                    <th class="data-label">Vendredi</th>
+                    <th class="data-label">Samedi</th>
+                    <th class="data-label">Dimanche</th>
+                    
+                    
+                    
+                    <th class="data-label">Total</th>
+                
+                </tr>
+              </thead>
+              {% for user_magasin in ori_magasin %}
+                {% for magasin in magasins %}
+                {% if magasin.week == magasin_w.week %}
+                  {% if magasin.magasin == user_magasin%}
+                  <tbody>
+                    <tr>          
+                      <td scope="row" data-label="n°">{{user_magasin.code}}</td>
+                      <td scope="row" data-label="magasin">{{user_magasin.user}}</td>
+                      
+                      
+                      
+                      {% if magasin.mon is None %}
+                      <td data-label="Lundi"></td>
+                      {% else %}
+                      <td data-label="Lundi">{{magasin.mon}}</td>
+                      {% endif %}
+                      {% if magasin.tue is None %}
+                      <td data-label="Mardi"></td>
+                      {% else %}
+                      <td data-label="Mardi">{{magasin.tue}}</td>
+                      {% endif %}
+                      {% if magasin.wed is None %}
+                      <td data-label="Mercredi"></td>
+                      {% else %}
+                      <td data-label="Mercredi">{{magasin.wed}}</td>
+                      {% endif %}
+                      {% if magasin.thur is None %}
+                      <td data-label="Jeudi"></td>
+                      {% else %}
+                      <td data-label="Jeudi">{{magasin.thur}}</td>
+                      {% endif %}
+                      {% if magasin.fri is None %}
+                      <td data-label="Vendredi"></td>
+                      {% else %}
+                      <td data-label="Vendredi">{{magasin.fri}}</td>
+                      {% endif %}
+                      {% if magasin.sat is None %}
+                      <td data-label="Samedi"></td>
+                      {% else %}
+                      <td data-label="Samedi">{{magasin.sat}}</td>
+                      {% endif %}
+                      {% if magasin.sun is None %}
+                      <td data-label="Dimanche"></td>
+                      {% else %}
+                      <td data-label="Dimanche">{{magasin.sun}}</td>
+                      {% endif %}
+                      
+                      
+                    
+                    
+                  
+                      
+                      
+                      
+                      
+                    
+                            
+                                              
+                        {% for total in total_magasin_value %}
+                        
+                        
+                        {% if total.week == magasin_w.week %}
+                        {% if total.mag == magasin.magasin.user %}
+                        <td scope="row" data-label="magasin">{{total.value.value__sum}}</td>
+                        {% endif %}
+                      
+                        {% endif %}
+                      
+                    
+                        {% endfor %}
+            
+                          
+                            
+                    </tr>
+                  </tbody>
+                  {% else%}
+
+                  {% for other_mag in other_magasins %}
+                    {% if other_mag.week == magasin.week %}
+                        {% if other_mag.list %}
+                        <tbody>
+                          <tr>          
+                            <td scope="row" data-label="n°">{{user_magasin.code}}</td>
+                            <td scope="row" data-label="magasin">{{user_magasin.user}}</td>
+                            
+                            
+
+                            <td data-label="Lundi"></td>
+                    
+                            <td data-label="Mardi"></td>
+                  
+                            <td data-label="Mercredi"></td>
+                  
+                  
+                            <td data-label="Jeudi"></td>
+                      
+                            <td data-label="Vendredi"></td>
+
+                            
+                  
+                            <td data-label="Samedi"></td>
+                        
+                          
+                          
+                          
+                            <td data-label="Dimanche"></td>
+                        
+                            
+                            
+                          
+                          
+                                
+          
+                            
+                            
+                            
+                            
+                          
+                                  
+                                                    
+                              {% for total in total_magasin_value %}
+                              
+                              
+                              {% if total.week == magasin_w.week %}
+                              {% if total.mag == magasin.magasin.user %}
+                              <td scope="row" data-label="magasin"></td>
+                              {% endif %}
+                            
+                              {% endif %}
+                            
+                          
+                              {% endfor %}
+                  
+                                
+                                
+                        </tbody>
+                        {% endif %}
+                    
+                    {% endif %}
+                  {% endfor %}
+                  {% endif %}
+                        
+                {% endif %}
+                
+                {% endfor %}
+              {% endfor %}
+              
+              
+
+              
+              
+      
+          </table>
+        
+    </div>
+
+     <!-- Day content-->
+     <div class="day-content">
+      <table>
+          <thead>
+              <tr>
+                  <th>N°</th>
+                  <th>Magasin</th>
+                 
+                  <th>{% now "d M" %}</th>
+                  
+
+              </tr>
+          </thead>
+          
+          {% for user in ori_magasin %}
+            {% for magasin in magasins %}
+              {% if magasin.week == magasin_w.week %}
+            
+                  {% if magasin.magasin == user %}
+                  <tbody>
+                    <tr>
+                      <td scope="row" data-label="n°">{{user.code}}</td>
+                      <td scope="row" data-label="magasin">{{user.user}}</td>
+                      
+                        
+                       
+                              
+                      
+                      <td>
+                       
+                        {% for magasin_v in magasin_value %}
+                          {% if magasin_v.magasin == user %}
+                            {% if magasin_v.week == magasin_w.week %}
+                             
+                              {% if magasin_v.day == todays_date %}
+                              {{magasin_v.value}}
+                              {% else %}
+                              
+                              {% endif %}
+                             
+                            {% endif %}
+                          {% endif %}
+                        {% endfor %}
+                      </td>
+                    
+                      
+                </tbody>
+                  {% endif %}
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+
+      </table>
+  </div>
+    {% endfor %}
+    
+
+{% endif %}
+
+
+  <!-- Magasin-->
+  {% if request.user.role == "MAGASIN" %}
+    {% if magasins %}
+
+      {% else %}
+        <div class="header">
+            <div class="control">
+              
+                <ul class="pagination">
+                    <li><a href="">&laquo;</a></li>
+                    <li><a href="">&raquo;</a></li>
+                
+                </ul>
+            </div>
+            <div class="date-page">
+                <span>January 2023</span>
+            </div>
+            <div class="date-control">
+              
+                <li class="active">Week</li>
+                <li>Today</li>
+            </div>
+        </div>  
+        <div class="week-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Magasin</th>
+                        <th>Lundi</th>
+                        <th>Mardi</th>
+                        <th>Mercredi</th>
+                        <th>Jeudi</th>
+                        <th>Vendredi</th>
+                        <th>Samedi</th>
+                        <th>Dimanche</th>
+                        <th>Total</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><p>001</p></td>
+                        <td><p>{{ mag_user.user }}</p></td>
+                        <td>
+                            <span></span>
+                            <span>--:--</span>
+                        </td>
+                        <td>
+                            <span></span>
+                            <span>--:--</span>
+                        </td>
+                        <td>
+                            <span></span>
+                            <span>--:--</span>
+                        </td>
+                        <td>
+                            <span></span>
+                            <span>--:--</span>
+                        </td>
+                        <td>
+                            <span></span>
+                            <span>--:--</span>
+                        </td>
+                        <td>
+                            <span></span>
+                            <span>--:--</span>
+                        </td>
+                        <td>
+                            <span></span>
+                            <span>--:--</span>
+                        </td>
+                        <td>
+                            <b>--</b>
+                          
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+    
+    {% for magasin_w in magasin_weekly %}
+    <div class="header">
+      <div class="control">
+        <div class="back">
+          <a href="{% url 'home' %}">
+            <img src="{% static 'images/icons8-go-back.png' %}" alt="">
+          </a>
+        </div>
+          <ul class="pagination">
+            {% if magasin_weekly.has_previous %}
+            <li><a href="?page={{ magasin_weekly.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+              <li class="disabled"><a href="#">&laquo;</a></li>
+            {% endif %}
+            {% if magasin_weekly.has_next %}
+              <li><a href="?page={{ magasin_weekly.next_page_number }}">&raquo;</a></li>
+            {% else %}
+              <li class="disabled"><a href="#">&raquo;</a></li>
+            {% endif %}
+          
+          </ul>
+      </div>
+      <div class="date-page">
+      
+            <span>Semaine {{magasin_w.week}}</span>
+           
+
+      </div>
+      <div class="date-control">
+        
+          <li class="active" id="week-toggle">Week</li>
+          <li id="day-toggle">Today</li>
+      </div>
+    </div>
+
+    <div class="week-content">
+        <table>
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Magasin</th>
+                    <th>Lundi</th>
+                    <th>Mardi</th>
+                    <th>Mercredi</th>
+                    <th>Jeudi</th>
+                    <th>Vendredi</th>
+                    <th>Samedi</th>
+                    <th>Dimanche</th>
+                    <th>Total</th>
+
+                </tr>
+            </thead>
+            
+            {% for user in magasins %}
+              {% for magasin in magasin_day_value %}
+                {% if magasin.week == magasin_w.week %}
+              
+                <tbody>
+                  <tr>
+                    <td scope="row" data-label="n°">{{magasin.magasin.code}}</td>
+                    <td scope="row" data-label="magasin">{{magasin.magasin.user}}</td>
+                    
+                      
+                     
+                            
+                    {% if magasin.mon is None %}
+                    <td></td> 
+                    {% else %}
+                    <td>
+                      <span>{{magasin.mon}}</span>
+                      {% for magasin_v in magasin_value %}
+                      {% if magasin_v.week == magasin.week %}
+                        {% if magasin_v.value == magasin.mon %}
+                        <span>{{magasin_v.created_at}}</span>
+                        {% endif %}
+                      {% endif %}
+                      {% endfor %}
+                    </td>
+                    {% endif %}
+                    {% if magasin.tue is None %}
+                    <td></td> 
+                    {% else %}
+                    <td>
+                      <span>{{magasin.tue}}</span>
+                      {% for magasin_v in magasin_value %}
+                      {% if magasin_v.week == magasin.week %}
+                        {% if magasin_v.value == magasin.tue %}
+                        <span>{{magasin_v.created_at}}</span>
+                        {% endif %}
+                      {% endif %}
+                      {% endfor %}
+                    </td>
+                    {% endif %}
+                    {% if magasin.wed is None %}
+                    <td></td> 
+                    {% else %}
+                    <td>
+                      <span>{{magasin.wed}}</span>
+                      {% for magasin_v in magasin_value %}
+                      {% if magasin_v.week == magasin.week %}
+                        {% if magasin_v.value == magasin.wed %}
+                        <span>{{magasin_v.created_at}}</span>
+                        {% endif %}
+                      {% endif %}
+                      {% endfor %}
+                    </td>
+                    {% endif %}
+                    {% if magasin.thur is None %}
+                    <td></td> 
+                    {% else %}
+                    <td>
+                      <span>{{magasin_v.value}}</span>
+                      {% for magasin_v in magasin_value %}
+                      {% if magasin_v.week == magasin.week %}
+                        {% if magasin_v.value == magasin.thur %}
+                        <span>{{magasin_v.created_at}}</span>
+                        {% endif %}
+                      {% endif %}
+                      {% endfor %}
+                    </td>
+                    {% endif %}
+                    {% if magasin.fri is None %}
+                    <td></td> 
+                    {% else %}
+                    <td>
+                      <span>{{magasin_v.value}}</span>
+                      {% for magasin_v in magasin_value %}
+                      {% if magasin_v.week == magasin.week %}
+                        {% if magasin_v.value == magasin.fri %}
+                        <span>{{magasin_v.created_at}}</span>
+                        {% endif %}
+                      {% endif %}
+                      {% endfor %}
+                    </td>
+                    {% endif %}
+                    {% if magasin.sat is None %}
+                    <td></td> 
+                    {% else %}
+                    <td>
+                      <span>{{magasin.sat}}</span>
+                      {% for magasin_v in magasin_value %}
+                      {% if magasin_v.week == magasin.week %}
+                        {% if magasin_v.value == magasin.sat %}
+                        <span>{{magasin_v.created_at}}</span>
+                        {% endif %}
+                      {% endif %}
+                      {% endfor %}
+                    </td>
+                    {% endif %}
+                    {% if magasin.sun is None %}
+                    <td></td> 
+                    {% else %}
+                    <td>
+                      <span>{{magasin.sun}}</span>
+                      {% for magasin_v in magasin_value %}
+                      {% if magasin_v.week == magasin.week %}
+                        {% if magasin_v.value == magasin.sun %}
+                        <span>{{magasin_v.created_at}}</span>
+                        {% endif %}
+                      {% endif %}
+                      {% endfor %}
+                    </td>
+                    {% endif %}
+                                     
+                                 
+                     
+                      
+                    
+                    {% for total in total_magasin_value %}
+                                  
+                                  
+                    {% if total.week == magasin_w.week %}
+                   
+                    <td scope="row" data-label="magasin"><b>{{total.value.value__sum}}</b></td>
+                 
+                  
+                    {% endif %}
+                  
+                
+                    {% endfor %}
+    
+                  </tr>
+              </tbody>
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+
+        </table>
+    </div>
+
+    <!-- Day content-->
+    <div class="day-content">
+      <table>
+          <thead>
+              <tr>
+                  <th>N°</th>
+                  <th>Magasin</th>
+                 
+                  <th>{% now "d M" %}</th>
+                  
+
+              </tr>
+          </thead>
+          
+          {% for user in magasins %}
+            {% for magasin in magasin_day_value %}
+              {% if magasin.week == magasin_w.week %}
+            
+              <tbody>
+                <tr>
+                  <td scope="row" data-label="n°">{{magasin.magasin.code}}</td>
+                  <td scope="row" data-label="magasin">{{magasin.magasin.user}}</td>
+                  
+                    
+                   
+                          
+                  
+                  <td>
+                   
+                    {% for magasin_v in magasin_value %}
+                    {% if magasin_v.day == today %}
+                    <span>{{magasin_v.value}}</span>
+                      <span>{{magasin_v.created_at}}</span>
+                     
+                    {% endif %}
+                    {% endfor %}
+                  </td>
+                
+                  
+            </tbody>
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+
+      </table>
+  </div>
+    {% endfor %}
+  {% endif %}
+
+  
+</div>
+
+<script>
+
+var week_toggle = document.getElementById("week-toggle")
+    var day_toggle = document.getElementById("day-toggle")
+    var week_content = document.querySelector(".week-content")
+    var day_content = document.querySelector(".day-content")
+    week_toggle.addEventListener('click', () =>{
+            week_toggle.classList.add('active')
+            day_toggle.classList.remove('active')
+            week_content.classList.remove('inactive')
+            day_content.classList.remove("active")
+
+        })
+    day_toggle.addEventListener('click', () =>{
+            day_toggle.classList.add('active')
+            week_toggle.classList.remove('active')
+            week_content.classList.add("inactive")
+            day_content.classList.add("active")
+        })
+</script>
 {% endblock content %}

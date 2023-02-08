@@ -7,5 +7,5 @@ urlpatterns = [
     path('historique/', views.historiqueView, name='historique'),
     path('formulaire/', views.formulaireView, name='formulaire'),
     path('historique/voir/<str:magasin>/<int:no>', views.voirView, name="voir"),
-    path('historique/profile', views.profileView, name="user_profile")
+    path('historique/profile', views.profileView, name="user_profile"),    
 ]

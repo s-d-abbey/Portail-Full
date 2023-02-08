@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
+
 
 
 
@@ -19,3 +20,5 @@ def supportView(request):
 @login_required(login_url='login')
 def paieView(request):
     return render(request, 'app_templates/paie.html')
+
+

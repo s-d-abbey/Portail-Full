@@ -7,7 +7,28 @@
 
 
 {% block content %}
+<style>
+  .back{
+    margin-left: 1rem;
+  }
+.back a{
+  padding: .2rem;
+  width: fit-content;
+  height: fit-content;
+  box-sizing: border-box;
+ background: white; 
+ display: flex;
+ border-radius: 50px 50px;
 
+}
+
+</style>
+
+<div class="back">
+<a href="{% url 'home' %}">
+  <img src="{% static 'images/icons8-go-back.png' %}" alt="">
+</a>
+</div>
 <div class="formulaire">
     <h1>REMPLIR MON FORMULAIRE QUOTIDIEN</h1>
 
