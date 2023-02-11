@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block custom-css %}
-  <link rel="stylesheet" href="{% static 'css/formulaire.css' %}">
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
 {% endblock custom-css %}
 {% block titre %} MAGBOARD - Chiffre d'affaire {% endblock%}
 
@@ -32,10 +32,24 @@
 <div class="formulaire">
     <h1>REMPLIR MON FORMULAIRE QUOTIDIEN</h1>
 
-    <form method="POST">
+    <form method="POST" id="form">
         {% csrf_token %}
-        <label for="value">Enter Value:</label>
-        <input type="number" name="magasin_value" required>
+        <li>
+          <label for="value">Nom:</label>
+          <input type="text" name="nom" required>
+        </li>
+        <li>
+          <label for="value">Prenom:</label>
+          <input type="text" name="prenom" required>
+        </li>
+        <li>
+          <label for="value">Nombre de clients:</label>
+          <input type="number" name="clients_no" required>
+        </li>
+        <li>
+          <label for="value">Chiffres d'affaires:</label>
+          <input type="number" name="magasin_value" required>
+        </li>
         <button type="submit" id="submitValue" onclick="func()">Submit</button>
     </form>
 </div>
@@ -44,7 +58,10 @@
   
   function func(){
     var button = document.getElementById("submitValue")
-    button.classList.add("disabled")
+    var form = document.getElementById('form')
+    if(form.onsubmit==true){
+      button.classList.add("disabled")
+    }
 
   }
  

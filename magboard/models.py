@@ -36,11 +36,13 @@ class Magasin_day_value(models.Model):
 
 class Magasin_value(models.Model):
     magasin = models.ForeignKey(Magasin,  on_delete=models.CASCADE)
+    nom = models.CharField(max_length=50, blank=True)
+    prenom = models.CharField(max_length=50, blank=True)
+    clients_no = models.IntegerField(null=True)
     value = models.IntegerField()
     day = models.DateField(default=date.today)
     week = models.IntegerField(default=date.today().isocalendar()[1])
     created_at = models.DateTimeField(auto_now_add=True, null=True)
-    
     class Meta:
         ordering = ['day']
     

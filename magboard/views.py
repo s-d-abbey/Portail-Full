@@ -221,12 +221,16 @@ def historiqueView(request):
 def formulaireView(request):
     magasin_u = Magasin.objects.get(user=request.user)
     if request.method == "POST":
-        value = request.POST.get('magasin_value')    
+        nom = request.POST.get('nom')
+        prenom = request.POST.get('prenom')
+        clients_no = request.POST.get('clients_no')
+        value = request.POST.get('magasin_value')
+
         if Magasin_value.objects.filter(magasin=magasin_u, day=date.today()).exists():
             messages.error(request, "Vous avez déjà soumis aujourd'hui",
                            extra_tags='alert alert-warning alert-dismissible fade show')
             return redirect('historique')
-        Magasin_value.objects.create(magasin=magasin_u, value=value)
+        Magasin_value.objects.create(magasin=magasin_u, nom=nom, prenom=prenom, clients_no=clients_no, value=value )
         if date.today().isoweekday() == 1:
             Magasin_day_value.objects.create(magasin=magasin_u, mon=value)
         if date.today().isoweekday() == 2:
