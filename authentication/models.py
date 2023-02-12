@@ -134,14 +134,22 @@ class Magasin(models.Model):
         ("", '----'),
         (MAGASIN, 'MAGASIN')
     )
+    ENSEIGNES_CHOICES =(
+        ("", '------------'),
+        ("FRANPRIX", 'FRANPRIX'),
+        ("NATURALIA", 'NATURALIA'),
+        ("MONOPRIX", 'MONOPRIX'),
+        ("CARREFOUR", 'CARREFOUR'),
+        ("AUCHAN", 'AUCHAN'),
+    )
     code = models.CharField(max_length=3)
     user = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
     role = models.CharField(max_length=50, choices=ROLE_CHOICES, default="MAGASIN")
-    superviseur = models.ForeignKey("Superviseur", related_name="My_Superviseur", on_delete=models.SET_NULL, null=True,  blank=True)
+    superviseur = models.ManyToManyField("Superviseur", related_name="My_Superviseur",  null=True,  blank=True)
     email = models.EmailField(max_length=254)
     number = PhoneNumberField(null=False, blank=False)
-    
+    enseignes = models.CharField(max_length=50, choices=ENSEIGNES_CHOICES)
     def __str__(self):
         return self.user
 
