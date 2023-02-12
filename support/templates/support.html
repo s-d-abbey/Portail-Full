@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&family=Oswald&family=Montserrat&family=Lato&family=Barlow&family=Sacramento&display=swap'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <title>Support</title>
+</head>
+<style>
+    .main{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .folder-link{
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        color: black;
+        font-family: "Poppins";
+    }
+    .folder-link img{
+        width: 4rem;
+    }
+    .back{
+    padding-right: 3rem;
+        
+        left: 5%;
+    }
+    .back a{
+      padding: .2rem;
+      width: fit-content;
+      height: fit-content;
+      box-sizing: border-box;
+    background: white; 
+    display: flex;
+    border-radius: 50px 50px;
+
+    }
+    .links{
+        width: fit-content;
+        
+        margin-top: 5%;
+        display: flex;
+        justify-content: flex;
+        flex-wrap: wrap;
+        gap: 60px;
+        
+    }
+    .links a{
+        font-family: "Poppins";
+    }
+    
+</style>
+
+<body>
+    <div class="main">
+        <div class="back">
+            <a href="{% url 'home' %}">
+              <img src="{% static 'images/icons8-go-back.png' %}" alt="">
+            </a>
+          </div>
+        <div class="links">
+            <a href="#" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">FRANPRIX</a>
+            <a href="#" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">NATURALIA</a>
+            <a href="#" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">MONOPRIX</a>
+            <a href="#" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">CARREFOUR</a>
+            <a href="#" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">AUCHAN</a>
+        </div>
+    </div>
+</body>
+</html>

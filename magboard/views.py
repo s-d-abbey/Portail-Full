@@ -8,7 +8,7 @@ from django.db.models import Sum
 from django.db.models.functions import ExtractWeek
 from django.shortcuts import redirect, render
 from matplotlib.style import context
-
+from django.urls import reverse
 from authentication.models import *
 from magboard.forms import MagasinForm
 from .forms import MagasinForm
@@ -147,7 +147,7 @@ def historiqueView(request):
         return render(request, 'historique.html', {'magasins': magasin, 'magasin_value': mvalue, 'ori_magasin': ori_magasin,'week_no': wlist, 'other_magasins': other_mag, 'magasin_weekly':w_magasin, 'total_magasin_value': wvalue_list, 'magasin_day_value': mdvalue,  'weekpag': weekpag, 'weekpaginator': weekpaginator})
     if request.user.role == "SUPERVISEUR":
         magasin_obj = Magasin_day_value.objects.filter(magasin__superviseur__user=request.user)
-        ori_magasin = Magasin.objects.all()
+        ori_magasin = Magasin.objects.filter(superviseur__user=request.user)
         page = request.GET.get('page', -1)
         mvalue = []
         wvalue = []
@@ -251,9 +251,9 @@ def formulaireView(request):
         return redirect('historique')
     return render(request, 'formulaire.html')
 
-@login_required(login_url='login')
+@login_required(login_url='login')   
 def voirView(request, magasin, no): 
-    if request.user.role == "ADMIN" or request.user.is_staff or request.user.role == "DIRECTION":
+    if request.user.role == "ADMIN" or request.user.is_staff or request.user.role == "DIRECTION" or request.user.is_staff or request.user.role == "SUPERVISEUR":
         
         
         values = Magasin_value.objects.filter(magasin__user=magasin).order_by('day')
@@ -264,15 +264,17 @@ def voirView(request, magasin, no):
         years = range(now.year, now.year + 5)
         month_range = range(1, 13)
         form = MagasinForm()
-        return render(request, 'voir.html', {'form': form, 'values': values, 'calendar': month_cal, 'selected_month': selected_month, 'selected_year': selected_year, 'years': years, 'range': month_range})
+        current_url = reverse('voir', kwargs={'magasin': magasin, 'no': no})
+        return render(request, 'voir.html', {'form': form, 'values': values, 'calendar': month_cal, 'selected_month': selected_month, 'selected_year': selected_year, 'years': years, 'range': month_range, 'current_url': current_url})
 
-def update_value(request):
+def update_value(request, week):
     form = MagasinForm()
     if request.user.role == "MAGASIN":
         if request.method == "POST":
-            mag_d_value = Magasin_day_value.objects.get(magasin__user=request.user)
+            mag_d_value = Magasin_day_value.objects.get(magasin__user=request.user, week=week)
             value_id = request.POST.get('value_id')
-            mag_value = Magasin_value.objects.get(value=value_id, magasin__user=request.user)
+            mag_value = Magasin_value.objects.get(value=value_id, magasin__user=request.user, week=week)
+            print(mag_value)
             if mag_value.week == mag_d_value.week:
            
                 if mag_d_value.mon == mag_value.value:
@@ -303,8 +305,9 @@ def update_value(request):
             mag_value.save()
             
             
-  
-        return redirect('historique')
+        current_page = request.GET.get('page', 1)
+
+        return redirect(reverse('historique') + '?page=' + str(current_page))
     return render(request, 'voir.html', {'form': form})
 @login_required(login_url='login')
 def profileView(request):

@@ -1,0 +1,582 @@
+
+.voir {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+
+  box-sizing: border-box;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start
+}
+.voir .header {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  align-items: center;
+  justify-content: space-between;
+}
+.voir .header .control {
+  width: 30%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  padding: 0.2rem;
+  justify-content: flex-start;
+}
+.voir .header .control .pagination {
+  display: flex;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  box-sizing: border-box;
+  align-items: center;
+  padding: 0;
+  gap: 5px;
+  justify-content: space-between;
+}
+.voir .header .control .pagination li {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: relative;
+  align-items: center;
+  box-shadow: 0px 0px 2px 1px rgb(199, 199, 199);
+  background-color: rgba(228, 220, 220, 0.3137254902);
+}
+.voir .header .control .pagination li:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.voir .header .control .pagination li:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.voir .header .control .pagination li a {
+  text-decoration: none;
+  font-size: 1.5em;
+  color: rgba(0, 0, 0, 0.582);
+  padding: 0.5rem 1.3rem;
+  position: relative;
+}
+
+.voir .header .control form{
+
+  display: flex;
+  padding: .5rem;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.voir .header .control form .input-texts{
+  display: flex;
+  gap: 10px;
+}
+.voir .header .control form .input-texts label{
+  font-size: 1rem;
+  padding: .2rem;
+}
+.voir .header .control form .input-texts select{
+  padding: .2rem 1rem;
+  border-radius: 5px;
+  border: 1px solid black;
+} 
+.voir .header .control form button{
+  padding: .5rem 1rem;
+  border-radius: 5px;
+  margin-top: 5%;
+  border: 1px solid black;
+}
+.voir .header .date-page {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.voir .header .date-page span {
+  font-size: 1.3em;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  text-align: center;
+  color: rgb(18, 176, 197);
+}
+.voir .header .date-control {
+  display: flex;
+  gap: 20px;
+  width: 30%;
+  justify-content: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+.voir .header .date-control li {
+  list-style: none;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1em;
+  color: rgba(0, 0, 0, 0.582);
+  box-shadow: 0px 0px 2px 1px rgb(199, 199, 199);
+  background-color: rgba(228, 220, 220, 0.3137254902);
+  padding: 0.5rem 1.5rem;
+  position: relative;
+}
+.voir .header .date-control li.active {
+  background: rgba(119, 118, 118, 0.226);
+}
+.voir .week-content {
+  width: 100%;
+  height:fit-content;
+  box-sizing: border-box;
+
+  margin-top: .4rem;
+  padding: 0.2rem;
+  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.295);
+}
+.voir .week-content table,
+.voir .day-content table {
+  width: 100%;
+  
+
+  height:fit-content;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+.voir .week-content table thead tr th,
+.voir .day-content table thead tr th {
+  border: 1px solid rgba(0, 0, 0, 0.24);
+  font-size: 1em;
+  
+}
+.voir .week-content table tbody tr{
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+.voir .week-content table tbody tr td{
+  
+  padding: 0.2rem 0.4rem 0.2rem 0;
+  width: calc(100%/7);
+
+  border: 1px solid rgba(0, 0, 0, 0.24);
+  box-sizing: border-box;
+  
+}
+.voir .week-content table tbody tr td p.day-value{
+  pointer-events: none;
+  height: fit-content;
+
+  line-height: 2rem;
+  display: flex;
+height: 100%;
+  top: 0;
+  align-items: flex-start;
+  justify-content: center;
+}
+.voir .week-content table thead tr th,
+.voir .week-content table tbody tr td p,
+.voir .day-content table thead tr th,
+.voir .day-content table tbody tr td p{
+  padding: .3rem;
+
+}
+
+.voir .week-content table tbody tr td span{
+  position: relative;
+  display: grid;
+  width: calc(100%);
+
+  grid-template-columns: 2fr 2fr;
+  padding: 0.5rem 0;
+  margin: .2rem;
+}
+.voir .week-content table tbody tr td span p a{
+  text-decoration: none;
+}
+.voir .week-content table tbody tr td span p{
+  cursor: pointer;
+  transition: all .4s ease;
+  border-right: 1px solid black;
+}
+.voir .week-content table tbody tr td span p:last-child{
+  border: none;
+}
+.voir .week-content table tbody tr td span .tooltip-text{
+  position: absolute;
+  top: 0;
+  display: none;
+  background: black;
+  padding: .5rem 1rem;
+  border-radius: 5px;
+  margin-top: -1rem;
+  color: white;
+}
+.voir .week-content table tbody tr td span p:hover  .tooltip-text{
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  align-self: center;
+}
+.voir .week-content table tbody tr td span a{
+  color: rgb(23, 50, 54);
+}
+.voir .week-content table tbody tr td span,
+.voir .day-content table tbody tr td span:last-child {
+  font-weight: bold;
+  color: rgb(23, 50, 54);
+  background: rgba(12, 52, 68, 0.514);
+  border-radius: 5px;
+  font-size: .9em;
+  white-space: nowrap;
+
+
+  box-shadow: 0px 0px 3px 1px solid rgb(22, 116, 238);
+}/*# sourceMappingURL=style.css.map */
+
+.voir .week-content table tbody tr td p{
+  font-size: .8em;
+}
+.voir .day-content {
+  width: 50%;
+  height:fit-content;
+  box-sizing: border-box;
+  display: none;
+  margin-top: .4rem;
+  padding: 0.2rem;
+  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.295);
+}
+.week-content.inactive{
+  display: none;
+}
+.day-content.active{
+  display: flex;
+}
+
+body.dark .voir{
+  color: white;
+}
+
+body.dark .voir .header .control .pagination li {
+  background-color: black;
+  box-shadow: 0px 0px 2px 1px rgba(14, 99, 133, 0.514);
+}
+body.dark .voir .header .control .pagination li a{
+  color: white;
+}
+body.dark .voir .header .date-control li{
+  background: black;
+  color: white;
+  box-shadow: 0px 0px 2px 1px rgba(14, 99, 133, 0.514);
+} 
+body.dark .voir .header .date-control li.active{
+  background-color: rgba(14, 99, 133, 0.514);
+  box-shadow: none;
+  color: rgba(255, 255, 255, 0.719);
+}
+body.dark .voir .week-content table tbody tr td span,
+body.dark .voir .day-content table tbody tr td span{
+  color: rgba(255, 255, 255, 0.705);
+  background: rgba(14, 99, 133, 0.514);
+} 
+body.dark .voir .week-content table tbody tr td span a{
+  color: rgba(255, 255, 255, 0.705);
+}
+.voir .back-small{
+  display: none;
+}
+@media only screen and (max-width: 1024px) {
+  
+.voir {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0rem;
+
+  box-sizing: border-box;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start
+}
+.voir .header {
+  display: flex;
+  width: 100%;
+  
+  box-sizing: border-box;
+  height: fit-content;
+  align-items: center;
+  justify-content: space-between;
+}
+.voir .header .control {
+  width: 60%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  padding: 0.2rem;
+  justify-content: flex-start;
+  position: relative;
+}
+.voir .header .control .back {
+position: absolute;
+display: none;
+top: 0;
+transform: translateY(-100%);
+}
+.voir .back-small{
+  display: flex;
+  left: 0;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  justify-self: flex-start;
+  position: relative;
+  width: 100%;
+}
+.back-small .date-page{
+  width: 80%;
+  height: 100%;
+  text-align: center;
+
+  color: rgb(18, 176, 197);
+  font-weight: bold;
+}
+
+
+.voir .header .control form{
+
+  display: flex;
+  padding: .5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  
+}
+.voir .header .control form .input-texts{
+  display: flex;
+  gap: 5px;
+
+}
+.voir .header .control form .input-texts label{
+  font-size: .7rem;
+  padding: .2rem;
+}
+.voir .header .control form .input-texts select{
+  padding: .2rem;
+  font-size: .7rem;
+  border-radius: 5px;
+  border: 1px solid black;
+} 
+.voir .header .control form button{
+  padding: .3rem .6rem;
+  border-radius: 5px;
+  margin-top: 5%;
+  border: 1px solid black;
+}
+.voir .header .date-page {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  display: none;
+}
+.voir .header .date-page span {
+  font-size: .7em;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  text-align: center;
+  color: rgb(18, 176, 197);
+}
+.voir .header .date-control {
+  display: flex;
+  gap: 10px;
+  width: 20%;
+  box-sizing: border-box;
+  justify-content: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+.voir .header .date-control li {
+  list-style: none;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: .7em;
+  color: rgba(0, 0, 0, 0.582);
+  box-shadow: 0px 0px 2px 1px rgb(199, 199, 199);
+  background-color: rgba(228, 220, 220, 0.3137254902);
+  padding: 0.5rem .5rem;
+  position: relative;
+}
+.voir .header .date-control li.active {
+  background: rgba(119, 118, 118, 0.226);
+}
+.voir .week-content {
+  width: 100%;
+  height: 45%;
+  margin-bottom: 5%;
+  box-sizing: border-box;
+
+  overflow: scroll;
+  margin-top: .4rem;
+  padding: 0.2rem;
+  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.295);
+}
+.voir .week-content table,
+.voir .day-content table {
+  width: 100%;
+  overflow: scroll;
+
+  height:100%;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+.voir .week-content table thead tr th,
+.voir .day-content table thead tr th {
+  border: 1px solid rgba(0, 0, 0, 0.24);
+  font-size: 1em;
+  
+}
+.voir .week-content table tbody tr{
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+.voir .week-content table tbody tr td{
+  
+  padding: 0.2rem 0.4rem 0.2rem 0;
+  width: calc(100%/7);
+
+  border: 1px solid rgba(0, 0, 0, 0.24);
+  box-sizing: border-box;
+  
+}
+.voir .week-content table tbody tr td p.day-value{
+  pointer-events: none;
+  height: fit-content;
+
+  line-height: 1rem;
+  display: flex;
+height: 100%;
+  top: 0;
+  align-items: flex-start;
+  justify-content: center;
+}
+.voir .week-content table thead tr th,
+.voir .week-content table tbody tr td p,
+.voir .day-content table thead tr th,
+.voir .day-content table tbody tr td p{
+  padding: .3rem;
+
+}
+
+.voir .week-content table tbody tr td span{
+  position: relative;
+  display: grid;
+  width: calc(100%);
+
+  grid-template-columns: 2fr 2fr;
+  padding: 0.5rem 0;
+  margin: .2rem;
+}
+.voir .week-content table tbody tr td span p a{
+  text-decoration: none;
+}
+.voir .week-content table tbody tr td span p{
+  cursor: pointer;
+  transition: all .4s ease;
+  border-right: 1px solid black;
+}
+.voir .week-content table tbody tr td span p:last-child{
+  border: none;
+}
+.voir .week-content table tbody tr td span .tooltip-text{
+  position: absolute;
+  top: 0;
+  display: none;
+  background: black;
+  padding: .5rem 1rem;
+  border-radius: 5px;
+  margin-top: -1rem;
+  color: white;
+}
+.voir .week-content table tbody tr td span p:hover  .tooltip-text{
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  align-self: center;
+}
+.voir .week-content table tbody tr td span a{
+  color: rgb(23, 50, 54);
+}
+.voir .week-content table tbody tr td span,
+.voir .day-content table tbody tr td span:last-child {
+  font-weight: bold;
+  color: rgb(23, 50, 54);
+  background: rgba(12, 52, 68, 0.514);
+  border-radius: 5px;
+  font-size: .9em;
+  white-space: nowrap;
+
+
+  box-shadow: 0px 0px 3px 1px solid rgb(22, 116, 238);
+}/*# sourceMappingURL=style.css.map */
+
+.voir .week-content table tbody tr td p{
+  font-size: .8em;
+}
+.voir .day-content {
+  width: 50%;
+  height:fit-content;
+  box-sizing: border-box;
+  display: none;
+  margin-top: .4rem;
+  padding: 0.2rem;
+  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.295);
+}
+.week-content.inactive{
+  display: none;
+}
+.day-content.active{
+  display: flex;
+}
+
+body.dark .voir{
+  color: white;
+}
+
+body.dark .voir .header .control .pagination li {
+  background-color: black;
+  box-shadow: 0px 0px 2px 1px rgba(14, 99, 133, 0.514);
+}
+body.dark .voir .header .control .pagination li a{
+  color: white;
+}
+body.dark .voir .header .date-control li{
+  background: black;
+  color: white;
+  box-shadow: 0px 0px 2px 1px rgba(14, 99, 133, 0.514);
+} 
+body.dark .voir .header .date-control li.active{
+  background-color: rgba(14, 99, 133, 0.514);
+  box-shadow: none;
+  color: rgba(255, 255, 255, 0.719);
+}
+body.dark .voir .week-content table tbody tr td span,
+body.dark .voir .day-content table tbody tr td span{
+  color: rgba(255, 255, 255, 0.705);
+  background: rgba(14, 99, 133, 0.514);
+} 
+body.dark .voir .week-content table tbody tr td span a{
+  color: rgba(255, 255, 255, 0.705);
+}
+}

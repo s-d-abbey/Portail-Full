@@ -7,6 +7,7 @@ urlpatterns = [
     path('historique/', views.historiqueView, name='historique'),
     path('formulaire/', views.formulaireView, name='formulaire'),
     path('historique/voir/<str:magasin>/<int:no>', views.voirView, name="voir"),
+    
     path('historique/profile', views.profileView, name="user_profile"),  
-    path('update_value/', views.update_value, name="update_value")  
+    path('update_value/<int:week>', views.update_value, name="update_value")  
 ]

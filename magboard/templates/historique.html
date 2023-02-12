@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block custom-css %}
-    <link rel="stylesheet" href="{% static 'css/historis.css' %}">
+    <link rel="stylesheet" href="{% static 'css/historiss.css' %}">
 
     <link rel="stylesheet" href="{% static 'css/modalse.css' %}">
     {% endblock custom-css %}
@@ -24,6 +24,7 @@
     border-radius: 50px 50px;
 
     }
+    
 
   </style>
 
@@ -303,22 +304,22 @@
                           {% if magasin.wed is None %}
                           <td data-label="Mercredi"></td>
                           {% else %}
-                          <td data-label="Mercredi">{{magasin.wed}}</td>
+                          <td data-label="Mercredi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.wed}}</a></td>
                           {% endif %}
                           {% if magasin.thur is None %}
                           <td data-label="Jeudi"></td>
                           {% else %}
-                          <td data-label="Jeudi">{{magasin.thur}}</td>
+                          <td data-label="Jeudi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.thur}}</a></td>
                           {% endif %}
                           {% if magasin.fri is None %}
                           <td data-label="Vendredi"></td>
                           {% else %}
-                          <td data-label="Vendredi">{{magasin.fri}}</td>
+                          <td data-label="Vendredi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.fri}}</a></td>
                           {% endif %}
                           {% if magasin.sat is None %}
                           <td data-label="Samedi"></td>
                           {% else %}
-                          <td data-label="Samedi">{{magasin.sat}}</td>
+                          <td data-label="Samedi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.sat}}</a></td>
                           {% endif %}
                           {% if magasin.sun is None %}
                           <td data-label="Dimanche"></td>
@@ -341,7 +342,6 @@
             
         </div>
       </div>
-      {% endfor %}
       <div class="modal fade" id="update-value-modal" tabindex="-1" role="dialog" aria-labelledby="update-value-modal-label" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -353,7 +353,7 @@
             </div>
             <div class="modal-body">
               <!-- Update Value Form -->
-              <form action="{% url 'update_value' %}" method="post">
+              <form action="{% url 'update_value' magasin_w.week %}" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="value_id" id="value-id">
                 <!-- Add form fields for updating the value here -->
@@ -384,6 +384,8 @@
           </div>
         </div>
       </div>
+      {% endfor %}
+    
     {% endif %}
 
     
@@ -400,6 +402,10 @@
     });
     var modal = document.querySelector('.modal')
     var modal_toggle = document.querySelector('.value-a')
+    var close = document.querySelector('.close')
+    close.addEventListener('click', () => {
+      modal.classList.remove('active')
+    })
     modal_toggle.addEventListener('click', () => {
       {% if request.user.role == "MAGASIN"%}
         modal.classList.add('active')

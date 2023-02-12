@@ -26,7 +26,7 @@ urlpatterns = [
     path('comptabilite/', Appviews.comptabiliteView, name='comptabilite'),
 
     #Support
-    path('support/', Appviews.supportView, name='support'),
+    path('support/', include('support.urls')),
 
     #Paie
     path('paie/', Appviews.paieView, name='paie'),

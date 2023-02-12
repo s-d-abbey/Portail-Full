@@ -3,7 +3,7 @@
 
 {% block custom-css %}
 
-  <link rel="stylesheet" href="{% static 'css/voi.css' %}">
+  <link rel="stylesheet" href="{% static 'css/voier.css' %}">
   <link rel="stylesheet" href="{% static 'css/modalse.css' %}">
 
 {% endblock custom-css %}
@@ -29,7 +29,17 @@
 <div class="voir">
 
  
+  <div class="back back-small">
+    <a href="{% url 'home' %}">
+      <img src="{% static 'images/icons8-go-back.png' %}" alt="">
+    </a>
+    <div class="date-page">
+      
+      <span class="month-name" ></span>
+     
 
+</div>
+  </div>
  
  
  
@@ -73,7 +83,7 @@
       </div>
       <div class="date-control">
         
-          <li class="active" id="week-toggle">Month</li>
+          <li class="active" id="week-toggle"><a style="text-decoration:none; color:white;" href="{{current_url}}">aujourd'hui</a> </li>
           {% comment %} <li id="day-toggle">Today</li> {% endcomment %}
       </div>
     </div>
@@ -105,14 +115,14 @@
                       {% for value in values %}
                         {% if value.day.month == selected_month %}
                           {% if value.day.day == day %}
-                          <span id="value"><p><small class="tooltip-text">Chiffres d'affaires</small><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{ value.value }}</a></p> <p><small class="tooltip-text">Nom</small><a href="#" data-toggle="modal" data-target="#update-value-modal">{{ value.nom }}</a></p></span>
-                          <span id="value"><p><small class="tooltip-text">Clients Number </small><a href="#" data-toggle="modal" data-target="#update-value-modal">{{ value.clients_no}}</a></p> <p><small class="tooltip-text">Prenom</small><a href="#" data-toggle="modal" data-target="#update-value-modal">{{ value.prenom }}</a></p></span>
-                          {% else %}
-                          <span style="padding:1.35rem; background: transparent;"></span>
-                          <span style="padding:1.35rem; background: transparent;"></span>
+                          <span id="value"><p><small class="tooltip-text">Chiffres d'affaires</small><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{ value.value }}</a></p> <p><small class="tooltip-text">Clients Number</small><a href="#" data-toggle="modal" data-target="#update-value-modal">{{ value.clients_no }}</a></p></span>
+                          <span id="value"><p><small class="tooltip-text">Nom </small><a href="#" data-toggle="modal" data-target="#update-value-modal">{{ value.nom}}</a></p> <p><small class="tooltip-text">Prenom</small><a href="#" data-toggle="modal" data-target="#update-value-modal">{{ value.prenom }}</a></p></span>
+                          <span id="value" style="width:100%; display: flex; align-items:center; justify-content:center;"><p style="border:none;"><small class="tooltip-text">Hour of Validation</small>{{value.created_at.time}}</p></span>
+                          
+                      
                           {% endif %}
                           {% else %}
-                          <span style="padding:1rem; background: transparent;"></span>
+                          
                         {% endif %}
                       {% endfor %}
                       {% else %}
@@ -145,7 +155,7 @@
       </div>
       <div class="modal-body">
         <!-- Update Value Form -->
-        <form action="{% url 'update_value' %}" method="post">
+        <form action="#" method="post">
           {% csrf_token %}
           <input type="hidden" name="value_id" id="value-id">
           <!-- Add form fields for updating the value here -->
