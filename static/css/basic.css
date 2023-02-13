@@ -451,7 +451,7 @@ li:hover .submenu{
 .logo-container{
   width: fit-content !important;
   display: flex;
-  border: 1px solid red ;
+
   align-items: center;
   justify-content: center;
   height: 10%;
@@ -491,6 +491,10 @@ li:hover .submenu{
   color: black;
   font-size: 18px;
   text-transform: uppercase;
+}
+.main{
+  overflow-y: scroll;
+  margin: 0;
 }
 .mainmenu{
   width: 100% !important;

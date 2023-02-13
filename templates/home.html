@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %} Accueil {% endblock%}
 {% block custom-css %}
-  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+  <link rel="stylesheet" href="{% static 'css/homer.css' %}">
 {% endblock custom-css %}
 
 {% block content %}
@@ -51,12 +51,20 @@
       </div>
       {% endif %}
       <div class="icon-container">
-        <!-- http://192.1.200.183/glpi -->
-        <a href="{% url 'support' %}"  draggable="true">
+        <a href="http://192.1.200.183/glpi"  draggable="true">
             <div class="icon">
                 <!-- <i class="bx bx-folder-open"></i> -->
                 <img src="{% static 'images/icons8-online-support-skin-type-1-100.png' %}" alt="">
                 <span>Support Informatique</span>
+            </div>
+        </a>
+      </div>
+      <div class="icon-container" >
+        <a href="{% url 'support' %}"  draggable="true">
+            <div class="icon">
+                <!-- <i class="bx bx-folder-open"></i> -->
+                <img src="{% static 'images/icons8-folder-48.png' %}" alt="">
+                <span>Documents</span>
             </div>
         </a>
       </div>
