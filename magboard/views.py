@@ -115,12 +115,12 @@ def historiqueView(request):
                     }
                 
                 wvalue_list.append(final)
-            null_magasin = ori_magasin.exclude(magasin_value__week=w)
+            null_magasin = Magasin.objects.all().exclude(magasin_value__week=w)
             fin = {'week': w,
                 'list': null_magasin}
             other_mag.append(fin)
         
-       
+        print(other_mag)
         
         
     
@@ -144,7 +144,7 @@ def historiqueView(request):
             magasin = paginator.page(paginator.num_pages)
             w_magasin = w_paginator.page(w_paginator.num_pages)
         
-        return render(request, 'historique.html', {'magasins': magasin, 'magasin_value': mvalue, 'ori_magasin': ori_magasin,'week_no': wlist, 'other_magasins': other_mag, 'magasin_weekly':w_magasin, 'total_magasin_value': wvalue_list, 'magasin_day_value': mdvalue,  'weekpag': weekpag, 'weekpaginator': weekpaginator})
+        return render(request, 'historique.html', {'null_list': null_magasin,'magasins': magasin, 'magasin_value': mvalue, 'ori_magasin': ori_magasin,'week_no': wlist, 'other_magasins': other_mag, 'magasin_weekly':w_magasin, 'total_magasin_value': wvalue_list, 'magasin_day_value': mdvalue,  'weekpag': weekpag, 'weekpaginator': weekpaginator})
     if request.user.role == "SUPERVISEUR":
         magasin_obj = Magasin_day_value.objects.filter(magasin__superviseur__user=request.user)
         ori_magasin = Magasin.objects.filter(superviseur__user=request.user)
