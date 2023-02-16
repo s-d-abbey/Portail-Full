@@ -146,8 +146,8 @@ def historiqueView(request):
         
         return render(request, 'historique.html', {'null_list': null_magasin,'magasins': magasin, 'magasin_value': mvalue, 'ori_magasin': ori_magasin,'week_no': wlist, 'other_magasins': other_mag, 'magasin_weekly':w_magasin, 'total_magasin_value': wvalue_list, 'magasin_day_value': mdvalue,  'weekpag': weekpag, 'weekpaginator': weekpaginator})
     if request.user.role == "SUPERVISEUR":
-        magasin_obj = Magasin_day_value.objects.filter(magasin__superviseur__user=request.user)
-        ori_magasin = Magasin.objects.filter(superviseur__user=request.user)
+        magasin_obj = Magasin_day_value.objects.filter(magasin__superviseur__username=request.user)
+        ori_magasin = Magasin.objects.filter(superviseur__username=request.user)
         page = request.GET.get('page', -1)
         mvalue = []
         wvalue = []

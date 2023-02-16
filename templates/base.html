@@ -53,7 +53,7 @@
               </div>
             </div>
               <div class="info">
-                <p>Bienvenue, <b>{{request.user.username}}</b></p>
+                <p>Bienvenue,{% if request.user.role == "MAGASIN" %} <b>{{request.user.username}}</b>{% else %} <b>{{request.user.last_name}}</b>{% endif %}</p>
               </div>
               <!-- <div class="extra small">
                 
@@ -88,7 +88,6 @@
         </div>
         {% endif %}
         {% block content %}
-          
         {% endblock content %}
       </div>
      
