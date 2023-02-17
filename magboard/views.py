@@ -102,6 +102,7 @@ def historiqueView(request):
         
         wvalue_list = []
         other_mag = []
+        null_magasin = []
         for w in week_list:
             
             for pers in Magasin.objects.all():

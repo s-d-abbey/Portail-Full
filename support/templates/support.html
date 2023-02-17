@@ -15,6 +15,7 @@
     .main{
         width: 100%;
         display: flex;
+        position: relative;
         justify-content: center;
     }
     .folder-link{
@@ -29,8 +30,11 @@
     }
     .back{
     padding-right: 3rem;
-        
+        display: flex;
+        justify-self: flex-start;
+        align-self: flex-start;
         left: 5%;
+        
     }
     .back a{
       padding: .2rem;
@@ -44,10 +48,13 @@
     }
     .links{
         width: fit-content;
-        
+        position: relative;
+       
         margin-top: 5%;
         display: flex;
-        justify-content: flex;
+        align-self: center;
+        justify-self: center;
+        justify-content: flex-start;
         flex-wrap: wrap;
         gap: 60px;
         
@@ -59,18 +66,47 @@
 </style>
 
 <body>
+    <div class="back">
+        <a href="{% url 'home' %}">
+          <img src="{% static 'images/icons8-go-back.png' %}" alt="">
+        </a>
+      </div>
     <div class="main">
-        <div class="back">
-            <a href="{% url 'home' %}">
-              <img src="{% static 'images/icons8-go-back.png' %}" alt="">
-            </a>
-          </div>
+        
+
+
+
         <div class="links">
-            <a href="#" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">FRANPRIX</a>
-            <a href="#" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">NATURALIA</a>
-            <a href="#" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">MONOPRIX</a>
-            <a href="#" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">CARREFOUR</a>
-            <a href="#" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">AUCHAN</a>
+            {% if request.user.role == "MAGASIN" %}
+             {% if magasin.enseignes == "FRANPRIX" %}
+             <a href="{% url 'franprix_files' %}" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">FRANPRIX</a>
+             {% endif %}
+             
+             {% if magasin.enseignes == "NATURALIA" %}
+             <a href="{% url 'naturalia_files' %}" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">NATURALIA</a>
+             {% endif %}
+
+             {% if magasin.enseignes == "MONOPRIX" %}
+             <a href="{% url 'monoprix_files' %}" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">MONOPRIX</a>
+             {% endif %}
+
+             {% if magasin.enseignes == "CARREFOUR" %}
+             <a href="{% url 'carrefour_files' %}" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">CARREFOUR</a>
+             {% endif %}
+
+             {% if magasin.enseignes == "AUCHAN" %}
+             <a href="{% url 'auchan_files' %}" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">AUCHAN</a>
+             {% endif %}
+
+             {% else %}
+
+             <a href="{% url 'franprix_files' %}" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">FRANPRIX</a>
+            <a href="{% url 'naturalia_files' %}" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">NATURALIA</a>
+            <a href="{% url 'monoprix_files' %}" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">MONOPRIX</a>
+            <a href="{% url 'carrefour_files' %}" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">CARREFOUR</a>
+            <a href="{% url 'auchan_files' %}" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">AUCHAN</a>
+           {% endif %}
+           
         </div>
     </div>
 </body>

@@ -51,7 +51,7 @@ class Admin(models.Model):
     def addGroup(sender, instance, created, **kwargs):
         if created:
             if instance.role == "ADMIN":
-                User.objects.create_user(username=instance.first_name, role=instance.role, password=instance.password, email=instance.email, is_staff=True)
+                User.objects.create_user(username=instance.first_name, last_name=instance.first_name, role=instance.role, password=instance.password, email=instance.email, is_staff=True)
                 admin_permission = Permission.objects.filter(name__contains="view admin")
                 comptabilite_permission = Permission.objects.filter(name__contains="comptabilite")
                 direction_permission = Permission.objects.filter(name__contains="direction")
