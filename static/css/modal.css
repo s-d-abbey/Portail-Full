@@ -16,7 +16,7 @@
 }
 .modal-dialog{
     width: 50%;
-    height: 60%;
+    height: fit-content;
     transform: translateY(-10%);
     box-sizing: border-box;
     border-radius: 50px 50px;

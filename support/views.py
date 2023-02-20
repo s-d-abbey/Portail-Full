@@ -45,7 +45,7 @@ def auchan_files(request):
 
 def download_pdf(request, name):
     # specify the paths to the PDF files
-    file_path = 'support/templates/docs/' + name 
+    file_path = 'support/templates/docs/franprix/' + name 
 
     # create a list of FileResponse objects
     response = FileResponse(open(file_path, 'rb'), content_type='application/pdf')

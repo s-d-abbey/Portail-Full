@@ -4,7 +4,7 @@
 {% block custom-css %}
 
   <link rel="stylesheet" href="{% static 'css/voier.css' %}">
-  <link rel="stylesheet" href="{% static 'css/modalse.css' %}">
+  <link rel="stylesheet" href="{% static 'css/modal.css' %}">
 
 {% endblock custom-css %}
 {% block content %}
@@ -26,7 +26,7 @@
   }
 
 </style>
-<div class="voir">
+<div class="voir" style="margin-bottom: 5%;">
 
  
   <div class="back back-small">
@@ -36,9 +36,7 @@
     <div class="date-page">
       
       <span class="month-name" ></span>
-     
-
-</div>
+    </div>
   </div>
  
  
@@ -115,7 +113,7 @@
                       {% for value in values %}
                         {% if value.day.month == selected_month %}
                           {% if value.day.day == day %}
-                          <span id="value"><p><small class="tooltip-text">Chiffres d'affaires</small><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{ value.value }}</a></p> <p><small class="tooltip-text">Clients Number</small><a href="#" data-toggle="modal" data-target="#update-value-modal">{{ value.clients_no }}</a></p></span>
+                          <span id="value"><p><small class="tooltip-text">Chiffres d'affaires</small><a  href="#" data-toggle="modal" data-target="#update-value-modal">{{ value.value }}</a></p> <p><small class="tooltip-text">Clients Number</small><a href="#" data-toggle="modal" data-target="#update-value-modal">{{ value.clients_no }}</a></p></span>
                           <span id="value"><p><small class="tooltip-text">Nom </small><a href="#" data-toggle="modal" data-target="#update-value-modal">{{ value.nom}}</a></p> <p><small class="tooltip-text">Prenom</small><a href="#" data-toggle="modal" data-target="#update-value-modal">{{ value.prenom }}</a></p></span>
                           <span id="value" style="width:100%; display: flex; align-items:center; justify-content:center;"><p style="border:none;"><small class="tooltip-text">Hour of Validation</small>{{value.created_at.time}}</p></span>
                           
@@ -144,49 +142,7 @@
     {% endif %}
 <!-- Update Value Modal -->
 
-<div class="modal fade" id="update-value-modal" tabindex="-1" role="dialog" aria-labelledby="update-value-modal-label" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="update-value-modal-label">Update Value</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- Update Value Form -->
-        <form action="#" method="post">
-          {% csrf_token %}
-          <input type="hidden" name="value_id" id="value-id">
-          <!-- Add form fields for updating the value here -->
-          <li>
-            <label for="value">Nom:</label>
-            <input type="text" name="nom" required>
-          </li>
-          <li>
-            <label for="value">Prenom:</label>
-            <input type="text" name="prenom" required>
-          </li>
-          <li>
-            <label for="value">Nombre de clients:</label>
-            <input type="number" name="clients_no" required>
-          </li>
-          <li>
-            <label for="value">Chiffres d'affaires:</label>
-            <input type="number" name="magasin_value" required>
-          </li>
-          
-          <div class="modal-footer">
-      
-            <button type="submit" class="btn">Update Value</button>
-          </div>
-        </form>
-      </div>
-      
-    </div>
-  </div>
-</div>
-  
+
 </div>
 <script src="https://code.jquery.com/jquery-3.6.3.slim.min.js" integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
 <script>
@@ -239,9 +195,8 @@ $(document).ready(function() {
   var modal = document.querySelector('.modal')
 var modal_toggle = document.querySelector('.value-a')
 modal_toggle.addEventListener('click', () => {
-  {% if request.user.role == "MAGASIN"%}
     modal.classList.add('active')
-  {% endif %}
+
 })
 var week_toggle = document.getElementById("week-toggle")
     var day_toggle = document.getElementById("day-toggle")
