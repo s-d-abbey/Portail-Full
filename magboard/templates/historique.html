@@ -137,32 +137,32 @@
                             {% if magasin.mon is None %}
                             <td data-label="Lundi"></td>
                             {% else %}
-                            <td data-label="Lundi">{{magasin.mon}}</td>
+                            <td data-label="Lundi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.mon}}</a></td>
                             {% endif %}
                             {% if magasin.tue is None %}
                             <td data-label="Mardi"></td>
                             {% else %}
-                            <td data-label="Mardi">{{magasin.tue}}</td>
+                            <td data-label="Mardi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.tue}}</a></td>
                             {% endif %}
                             {% if magasin.wed is None %}
                             <td data-label="Mercredi"></td>
                             {% else %}
-                            <td data-label="Mercredi">{{magasin.wed}}</td>
+                            <td data-label="Mercredi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.wed}}</a></td>
                             {% endif %}
                             {% if magasin.thur is None %}
                             <td data-label="Jeudi"></td>
                             {% else %}
-                            <td data-label="Jeudi">{{magasin.thur}}</td>
+                            <td data-label="Jeudi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.thur}}</a></td>
                             {% endif %}
                             {% if magasin.fri is None %}
                             <td data-label="Vendredi"></td>
                             {% else %}
-                            <td data-label="Vendredi">{{magasin.fri}}</td>
+                            <td data-label="Vendredi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.fri}}</a></td>
                             {% endif %}
                             {% if magasin.sat is None %}
                             <td data-label="Samedi"></td>
                             {% else %}
-                            <td data-label="Samedi">{{magasin.sat}}</td>
+                            <td data-label="Samedi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.sat}}</a></td>
                             {% endif %}
                             {% if magasin.sun is None %}
                             <td data-label="Dimanche"></td>
@@ -412,9 +412,9 @@
       modal.classList.remove('active')
     })
     modal_toggle.addEventListener('click', () => {
-      {% if request.user.role == "MAGASIN"%}
+      // {% if request.user.role == "MAGASIN"%}
         modal.classList.add('active')
-      {% endif %}
+      //{% endif %}
     })
     </script>
   </section>

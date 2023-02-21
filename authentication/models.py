@@ -51,7 +51,9 @@ class Admin(models.Model):
     def addGroup(sender, instance, created, **kwargs):
         if created:
             if instance.role == "ADMIN":
+
                 User.objects.create_user(username=instance.username, last_name=instance.fullname, role=instance.role, password=instance.password, email=instance.email, is_staff=True)
+
                 admin_permission = Permission.objects.filter(name__contains="view admin")
                 comptabilite_permission = Permission.objects.filter(name__contains="comptabilite")
                 direction_permission = Permission.objects.filter(name__contains="direction")
@@ -147,6 +149,7 @@ class Magasin(models.Model):
     )
     code = models.CharField(max_length=3)
     user = models.CharField(max_length=100)
+    fullname = models.CharField(max_length=100, blank=True)
     password = models.CharField(max_length=100)
     role = models.CharField(max_length=50, choices=ROLE_CHOICES, default="MAGASIN")
     superviseur = models.ManyToManyField("Superviseur", related_name="My_Superviseur",  null=True,  blank=True)
@@ -161,7 +164,7 @@ class Magasin(models.Model):
     def addGroup(sender, instance, created, **kwargs):
         if created:
             if instance.role == "MAGASIN":
-                User.objects.create_user(code=instance.code,username=instance.user,  role=instance.role, email=instance.email, password=instance.password)
+                User.objects.create_user(code=instance.code,username=instance.user, last_name=instance.fullname,  role=instance.role, email=instance.email, password=instance.password)
 
     @receiver(pre_delete, sender="authentication.Magasin")
     def delete_user(sender, instance, **kwargs):

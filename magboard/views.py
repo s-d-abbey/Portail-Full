@@ -102,6 +102,7 @@ def historiqueView(request):
         
         wvalue_list = []
         other_mag = []
+        null_magasin = []
         for w in week_list:
             
             for pers in Magasin.objects.all():
@@ -227,7 +228,7 @@ def formulaireView(request):
         value = request.POST.get('magasin_value')
 
         if Magasin_value.objects.filter(magasin=magasin_u, day=date.today()).exists():
-            messages.error(request, "Vous avez déjà soumis aujourd'hui",
+            messages.error(request, "Vous avez déjà soumis le formulaire aujourd'hui",
                            extra_tags='alert alert-warning alert-dismissible fade show')
             return redirect('historique')
         Magasin_value.objects.create(magasin=magasin_u, nom=nom, prenom=prenom, clients_no=clients_no, value=value )
