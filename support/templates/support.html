@@ -73,13 +73,14 @@
       </div>
     <div class="main">
         
-
-
-
         <div class="links">
             {% if request.user.role == "MAGASIN" %}
              {% if magasin.enseignes == "FRANPRIX" %}
              <a href="{% url 'franprix_files' %}" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">FRANPRIX</a>
+             {% endif %}
+
+             {% if magasin.enseignes == "AUTRES" %}
+             <a href="{% url 'autres_files' %}" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">AUTRES</a>
              {% endif %}
              
              {% if magasin.enseignes == "NATURALIA" %}
@@ -105,6 +106,7 @@
             <a href="{% url 'monoprix_files' %}" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">MONOPRIX</a>
             <a href="{% url 'carrefour_files' %}" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">CARREFOUR</a>
             <a href="{% url 'auchan_files' %}" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">AUCHAN</a>
+            <a href="{% url 'autres_files' %}" class="folder-link"><img src="{% static 'images/icons8-folder-48.png' %}" alt="">AUTRES</a>
            {% endif %}
            
         </div>

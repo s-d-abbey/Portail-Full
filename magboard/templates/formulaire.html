@@ -21,7 +21,6 @@
  border-radius: 50px 50px;
 
 }
-
 </style>
 
 <div class="back">
@@ -30,7 +29,8 @@
 </a>
 </div>
 <div class="formulaire">
-    <h1>REMPLIR MON FORMULAIRE QUOTIDIEN</h1>
+    <h1>MON FORMULAIRE QUOTIDIEN</h1>
+    <br>
 
     <form method="POST" id="form" name="form">
         {% csrf_token %}
@@ -55,7 +55,7 @@
           <label for="value">Chiffres d'affaires:</label>
           <input type="text" name="magasin_value" required>
         </li>
-        <button type="submit" id="submitValue" onclick="func()">Submit</button>
+        <button type="submit" id="submitValue" onclick="func()">Valider</button>
     </form>
 </div>
 

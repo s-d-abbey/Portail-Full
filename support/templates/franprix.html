@@ -34,17 +34,19 @@
     }
     .file-bucket{
        
-        width: 100%;
+        width: 90%;
+        flex-wrap: wrap;
         display: flex;
         align-items: center;
         justify-content: flex-start;
         gap: 20px;
     }
     .file{
-        width: fit-content;
-        
+        width: calc(100%/6);
+        box-sizing: border-box;
         margin-top: 5%;
         display: flex;
+        height: fit-content;
         flex-direction: column;
         align-items: center;
         justify-content: center;
@@ -53,8 +55,18 @@
         text-decoration: none;
         font-family: "Poppins";
         color: rgb(22, 21, 21);
+  
     }
+   .file span{
+    width:70%;
+    height:fit-content;
    
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    word-break: break-all;
+
+   }
     
 </style>
 
@@ -70,7 +82,7 @@
             {% for file_name in file_names %}
                 
                     
-                    <a class="file" href="{% url 'download_pdf' file_name %}">
+                    <a class="file" href="{% url 'download_pdf' dir_name file_name %}">
                         <img src="{% static 'images/pdf-icon.png' %}" alt="">
                         <span>{{ file_name }}</span>
                     </a>

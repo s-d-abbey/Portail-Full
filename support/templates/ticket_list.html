@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block custom-css %}
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock custom-css %}
+{% block titre %} Ticket listes {% endblock%}
+
+
+{% block content %}
+<style>
+  .back{
+    margin-left: 1rem;
+}
+.back a{
+  padding: .2rem;
+  width: fit-content;
+  height: fit-content;
+  box-sizing: border-box;
+ background: white; 
+ display: flex;
+ border-radius: 50px 50px;
+}
+</style>
+
+<div class="back">
+    <a href="{% url 'home' %}">
+      <img src="{% static 'images/icons8-go-back.png' %}" alt="">
+    </a>
+</div>
+
+<h1>Tickets en cours</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Urgence</th>
+      <th>Statut</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for ticket in tickets %}
+      <tr>
+        <td>{{ ticket.name }}</td>
+        <td>{{ ticket.urgency }}</td>
+        <td>{{ ticket.status }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
+

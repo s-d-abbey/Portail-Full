@@ -46,9 +46,9 @@ def logout_user(request):
 @login_required
 def home(request):
         if request.user.role == "SUPERVISEUR":
-            magasin_obj = Magasin_day_value.objects.filter(magasin__superviseur__user=request.user).order_by('magasin__code')
+            magasin_obj = Magasin_day_value.objects.filter(magasin__superviseur__username=request.user).order_by('magasin__code')
 
-            ori_magasin = Magasin.objects.filter(superviseur__user=request.user).order_by('code')
+            ori_magasin = Magasin.objects.filter(superviseur__username=request.user).order_by('code')
 
             page = request.GET.get('page', -1)
             

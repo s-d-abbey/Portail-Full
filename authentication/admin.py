@@ -3,10 +3,43 @@ from django.contrib import admin
 from .models import *
 
 # Register your models here.
-admin.site.register(User)
-admin.site.register(Admin)
-admin.site.register(Direction)
-admin.site.register(Superviseur)
-admin.site.register(Comptabilite)
-admin.site.register(Magasin)
-admin.site.register(RH)
+class UserAdmin(admin.ModelAdmin):
+    #list_display = ('username','fullname','role','email','id',)
+    ordering = ('username',)
+admin.site.register(User, UserAdmin)
+
+class AdminAdmin(admin.ModelAdmin):
+    list_display = ('username','fullname','role','email','id',)
+    ordering = ('username',)
+admin.site.register(Admin, AdminAdmin)
+
+class DirectionAdmin(admin.ModelAdmin):
+    list_display = ('username','fullname','role','email','id',)
+    ordering = ('username',)
+admin.site.register(Direction, DirectionAdmin)
+
+class SuperviseurAdmin(admin.ModelAdmin):
+    list_display = ('username','fullname','role','email','id',)
+    ordering = ('username',)
+admin.site.register(Superviseur, SuperviseurAdmin)
+
+class ComptabiliteAdmin(admin.ModelAdmin):
+    list_display = ('username','fullname','role','email','id',)
+    ordering = ('username',)
+admin.site.register(Comptabilite,ComptabiliteAdmin)
+
+class JuristeAdmin(admin.ModelAdmin):
+    list_display = ('username','fullname','role','email','id',)
+    ordering = ('username',)
+admin.site.register(Juriste,JuristeAdmin)
+
+class RhAdmin(admin.ModelAdmin):
+    list_display = ('username','fullname','role','email','id',)
+    ordering = ('username',)
+admin.site.register(RH,RhAdmin)
+
+class MagasinAdmin(admin.ModelAdmin):
+    list_display = ('code','user','fullname', 'role','enseignes','email','id',)
+    ordering = ('code',)
+admin.site.register(Magasin, MagasinAdmin)
+

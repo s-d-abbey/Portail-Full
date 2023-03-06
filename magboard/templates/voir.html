@@ -3,8 +3,9 @@
 
 {% block custom-css %}
 
-  <link rel="stylesheet" href="{% static 'css/voier.css' %}">
+  <link rel="stylesheet" href="{% static 'css/boir.css' %}">
   <link rel="stylesheet" href="{% static 'css/modal.css' %}">
+
 
 {% endblock custom-css %}
 {% block content %}
@@ -55,7 +56,7 @@
          
           <form method="get">
             <div class="input-texts">
-                <label for="month">Month: </label>
+                <label for="month">Mois: </label>
                 <select id="month" name="month">
                   {% for i in range %}
                   <option value="{{ i }}" {% if i == selected_month %}selected{% endif %}>{{ i }}</option>
@@ -113,9 +114,9 @@
                       {% for value in values %}
                         {% if value.day.month == selected_month %}
                           {% if value.day.day == day %}
-                          <span id="value"><p><small class="tooltip-text">Chiffres d'affaires</small><a  href="#" data-toggle="modal" data-target="#update-value-modal">{{ value.value }}</a></p> <p><small class="tooltip-text">Clients Number</small><a href="#" data-toggle="modal" data-target="#update-value-modal">{{ value.clients_no }}</a></p></span>
+                          <span id="value"><p><small class="tooltip-text">Chiffre d'affaires</small><a  href="#" data-toggle="modal" data-target="#update-value-modal">{{ value.value }}</a></p> <p><small class="tooltip-text">Nombre de clients</small><a href="#" data-toggle="modal" data-target="#update-value-modal">{{ value.clients_no }}</a></p></span>
                           <span id="value"><p><small class="tooltip-text">Nom </small><a href="#" data-toggle="modal" data-target="#update-value-modal">{{ value.nom}}</a></p> <p><small class="tooltip-text">Prenom</small><a href="#" data-toggle="modal" data-target="#update-value-modal">{{ value.prenom }}</a></p></span>
-                          <span id="value" style="width:100%; display: flex; align-items:center; justify-content:center;"><p style="border:none;"><small class="tooltip-text">Hour of Validation</small>{{value.created_at.time}}</p></span>
+                          <span id="value" style="width:100%; display: flex; align-items:center; justify-content:center;"><p style="border:none;"><small class="tooltip-text">Heure de vaildation</small>{{value.created_at.time}}</p></span>
                           
                       
                           {% endif %}

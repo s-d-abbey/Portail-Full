@@ -139,7 +139,7 @@
                         <tbody>
                           <tr>          
                             <td scope="row" data-label="n°">{{user_magasin.code}}</td>
-                            <td scope="row" data-label="magasin">{{user_magasin.user}}</td>
+                            <td scope="row" data-label="magasin">{{user_magasin.fullname}}</td>
                             {% if magasin.mon is None %}
                             <td data-label="Lundi"></td>
                             {% else %}
@@ -229,12 +229,12 @@
                             </li>
                             <li>
                               <label for="value">Chiffres d'affaires:</label>
-                              <input type="number" name="magasin_value" required>
+                              <input type="text" name="magasin_value" required>
                             </li>
                             
                             <div class="modal-footer">
                         
-                              <button type="submit" class="btn">Update Value</button>
+                              <button type="submit" class="btn">Valider</button>
                             </div>
                           </form>
                         </div>
