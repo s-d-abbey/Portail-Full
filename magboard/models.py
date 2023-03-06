@@ -22,7 +22,7 @@ class Days(models.Model):
 class Magasin_day_value(models.Model):
     magasin = models.ForeignKey(Magasin,  on_delete=models.CASCADE)
     
-    week = models.FloatField(default=date.today().isocalendar()[1])
+    week = models.IntegerField(default=date.today().isocalendar()[1])
     mon = models.FloatField(blank=True, null=True, default=None)
     tue = models.FloatField(blank=True, null=True, default=None)
     wed = models.FloatField( blank=True, null=True, default=None)

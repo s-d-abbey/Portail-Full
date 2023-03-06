@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block custom-css %}
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock custom-css %}
+{% block titre %} Ticket validation {% endblock%}
+
+
+{% block content %}
+<style>
+  .back{
+    margin-left: 1rem;
+}
+.back a{
+  padding: .2rem;
+  width: fit-content;
+  height: fit-content;
+  box-sizing: border-box;
+ background: white; 
+ display: flex;
+ border-radius: 50px 50px;
+}
+</style>
+
+
+<h1>Ticket créé avec succès !</h1>
+{% endblock %}
+

@@ -12,6 +12,7 @@ class User(AbstractUser):
     DIRECTION = 'DIRECTION'
     SUPERVISEUR = 'SUPERVISEUR'
     COMPTABILITE = 'COMPTABILITE'
+    JURISTE = 'JURISTE'
     PAIE = 'PAIE'
     MAGASIN = 'MAGASIN'
     RH = 'RH'
@@ -21,6 +22,7 @@ class User(AbstractUser):
         (DIRECTION, 'DIRECTION'),
         (SUPERVISEUR, 'SUPERVISEUR'),
         (COMPTABILITE, 'COMPTABILITE'),
+        (JURISTE, 'JURISTE'),
         (PAIE, 'PAIE'),
         (MAGASIN, 'MAGASIN'),
         (RH, 'RH'),
@@ -132,6 +134,35 @@ class Comptabilite(models.Model):
                 user = User.objects.get(username=instance.username, role=instance.role)
                 user.delete()
 
+
+class Juriste(models.Model):
+    JURISTE = 'JURISTE'
+    ROLE_CHOICES=(
+        ("", '----'),
+        (JURISTE, 'JURISTE')
+    )
+    username = models.CharField(max_length=100)
+    fullname = models.CharField(max_length=100)
+    role = models.CharField(max_length=50, choices=ROLE_CHOICES, default="JURISTE")
+    password = models.CharField(max_length=100)
+    email = models.EmailField(max_length=254)
+    number = PhoneNumberField(null=False, blank=False)
+    def __str__(self):
+        return self.username
+
+    @receiver(post_save, sender="authentication.Juriste")
+    def addGroup(sender, instance, created, **kwargs):
+        if created:
+            if instance.role == "JURISTE":
+                User.objects.create_user(username=instance.username, last_name=instance.fullname, role=instance.role, email=instance.email, password=instance.password)
+    
+    @receiver(pre_delete, sender="authentication.Juriste")
+    def delete_user(sender, instance, **kwargs):
+       
+            if User.objects.filter(username=instance.username, role=instance.role).exists():
+                user = User.objects.get(username=instance.username, role=instance.role)
+                user.delete()
+                
                 
 class Magasin(models.Model):
     MAGASIN = 'MAGASIN'
@@ -146,6 +177,7 @@ class Magasin(models.Model):
         ("MONOPRIX", 'MONOPRIX'),
         ("CARREFOUR", 'CARREFOUR'),
         ("AUCHAN", 'AUCHAN'),
+        ("AUTRES", 'AUTRES'),
     )
     code = models.CharField(max_length=3)
     user = models.CharField(max_length=100)

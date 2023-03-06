@@ -1,0 +1,68 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block custom-css %}
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock custom-css %}
+{% block titre %} Unboarding - Saisie {% endblock%}
+
+
+{% block content %}
+<style>
+  .back{
+    margin-left: 1rem;
+  }
+.back a{
+  padding: .2rem;
+  width: fit-content;
+  height: fit-content;
+  box-sizing: border-box;
+ background: white; 
+ display: flex;
+ border-radius: 50px 50px;
+}
+
+</style>
+
+<div class="back">
+<a href="{% url 'home' %}">
+  <img src="{% static 'images/icons8-go-back.png' %}" alt="">
+</a>
+</div>
+
+
+<body>
+    <h1>Unboarding</h1>
+    <p>Nom : {{ personne.nom }}</p>
+    <p>Prénom : {{ personne.prenom }}</p>
+    <p>Date d'arrivée : {{ personne.date_arrivee }}</p>
+    <p>Service : {{ personne.service }}</p>
+    <p>Droits : {{ personne.droits }}</p>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Valider</button>
+    </form>
+    {% if pdf %}
+        <a href="{{ pdf.url }}" target="_blank">Télécharger le PDF</a>
+        <button onclick="window.print()">Imprimer le PDF</button>
+    {% endif %}
+
+</body>
+
+<script>
+  
+  function func(){
+    var button = document.getElementById("submitValue")
+    var form = document.getElementById('form')
+    if(form.onsubmit==true){
+      button.classList.add("disabled")
+    }
+
+  }
+ 
+</script>
+{% endblock %}
+
+

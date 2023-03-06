@@ -8,12 +8,12 @@
 {% block content %}
 <div class="page-container">
   <div class="page">
-    {% if request.user.role == "RH" %}
+    {% if request.user.role == "RH" or request.user.role == "ADMIN" or request.user.role == "DIRECTION" or request.user.is_staff %}
       <div class="icon-container">
           <a href="" draggable="true">
               <div class="icon">
                   <i class="fa fa-info fa-2x"></i>
-                  <span>Paie</span>
+                  <span>Intégration</span>
               </div>
           </a>
       </div>
@@ -51,7 +51,7 @@
       </div>
       {% endif %}
       <div class="icon-container">
-        <a target="_blank" href="http://192.1.200.183/glpi"  draggable="true">
+        <a href="{% url 'ticket_create' %}"  draggable="true">
             <div class="icon">
                 <!-- <i class="bx bx-folder-open"></i> -->
                 <img src="{% static 'images/icons8-online-support-skin-type-1-100.png' %}" alt="">

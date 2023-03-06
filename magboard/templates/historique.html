@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block custom-css %}
-    <link rel="stylesheet" href="{% static 'css/historiss.css' %}">
+    <link rel="stylesheet" href="{% static 'css/historis.css' %}">
 
-    <link rel="stylesheet" href="{% static 'css/modalse.css' %}">
+    <link rel="stylesheet" href="{% static 'css/modal.css' %}">
     {% endblock custom-css %}
 {% block title %}Historique {% endblock%}
 
@@ -24,7 +24,13 @@
     border-radius: 50px 50px;
 
     }
-    
+    .value-admin{
+      color:black;
+    }
+    body.dark .value-admin{
+      color: white;
+
+    }
 
   </style>
 
@@ -133,41 +139,41 @@
                         <tbody>
                           <tr>          
                             <td scope="row" data-label="n°">{{user_magasin.code}}</td>
-                            <td scope="row" data-label="magasin">{{user_magasin.user}}</td>
+                            <td scope="row" data-label="magasin">{{user_magasin.fullname}}</td>
                             {% if magasin.mon is None %}
                             <td data-label="Lundi"></td>
                             {% else %}
-                            <td data-label="Lundi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.mon}}</a></td>
+                            <td data-label="Lundi"><a class="value-admin" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.mon}}</a><input type="hidden" class="value-magasin" value="{{user_magasin.user}}"></td>
                             {% endif %}
                             {% if magasin.tue is None %}
                             <td data-label="Mardi"></td>
                             {% else %}
-                            <td data-label="Mardi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.tue}}</a></td>
+                            <td data-label="Mardi"><a class="value-admin href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.tue}}</a><input type="hidden" class="value-magasin" value="{{user_magasin.user}}"></td>
                             {% endif %}
                             {% if magasin.wed is None %}
                             <td data-label="Mercredi"></td>
                             {% else %}
-                            <td data-label="Mercredi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.wed}}</a></td>
+                            <td data-label="Mercredi"><a class="value-admin" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.wed}}</a><input type="hidden" class="value-magasin" value="{{user_magasin.user}}"></td>
                             {% endif %}
                             {% if magasin.thur is None %}
                             <td data-label="Jeudi"></td>
                             {% else %}
-                            <td data-label="Jeudi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.thur}}</a></td>
+                            <td data-label="Jeudi"><a class="value-admin" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.thur}}</a><input type="hidden" class="value-magasin" value="{{user_magasin.user}}"></td>
                             {% endif %}
                             {% if magasin.fri is None %}
                             <td data-label="Vendredi"></td>
                             {% else %}
-                            <td data-label="Vendredi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.fri}}</a></td>
+                            <td data-label="Vendredi"><a class="value-admin" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.fri}}</a><input type="hidden" class="value-magasin" value="{{user_magasin.user}}"></td>
                             {% endif %}
                             {% if magasin.sat is None %}
                             <td data-label="Samedi"></td>
                             {% else %}
-                            <td data-label="Samedi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.sat}}</a></td>
+                            <td data-label="Samedi"><a class="value-admin" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.sat}}</a><input type="hidden" class="value-magasin" value="{{user_magasin.user}}"></td>
                             {% endif %}
                             {% if magasin.sun is None %}
                             <td data-label="Dimanche"></td>
                             {% else %}
-                            <td data-label="Dimanche">{{magasin.sun}}</td>
+                            <td data-label="Dimanche"><a class="value-admin" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.sun}} </a><input type="hidden" class="value-magasin" value="{{user_magasin.user}}"></td>
                             {% endif %}                    
                             {% for total in total_magasin_value %}
                               {% if total.week == magasin_w.week %}
@@ -185,6 +191,49 @@
                       {% endif %}
                     {% endif %}
                   {% endfor %}
+                  <div class="modal fade" id="update-value-modal" tabindex="-1" role="dialog" aria-labelledby="update-value-modal-label" aria-hidden="true">
+                    <div class="modal-dialog" role="document" style="display: flex; align-items: center; justify-content: center;">
+                      <div class="modal-content" style="width: 80%;">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="update-value-modal-label">Update Value</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <!-- Update Value Form -->
+                          <form action="{% url 'update_value' magasin_w.week %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="value_id" id="value-id">
+                            <input type="hidden" name="value_mag" value="{{user_magasin.user}}">
+                            <!-- Add form fields for updating the value here -->
+                            <li>
+                              <label for="value">Nom:</label>
+                              <input type="text" name="nom" required>
+                            </li>
+                            <li>
+                              <label for="value">Prenom:</label>
+                              <input type="text" name="prenom" required>
+                            </li>
+                            <li>
+                              <label for="value">Nombre de clients:</label>
+                              <input type="number" name="clients_no" required>
+                            </li>
+                            <li>
+                              <label for="value">Chiffres d'affaires:</label>
+                              <input type="text" name="magasin_value" required>
+                            </li>
+                            
+                            <div class="modal-footer">
+                        
+                              <button type="submit" class="btn">Valider</button>
+                            </div>
+                          </form>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
                 {% endfor %}
                 
                 {% for other_mag in other_magasins %}
@@ -220,11 +269,13 @@
             </table>
           </div>
         </div>
+       
       {% endfor %}
+
     {% endif %}
 
     <!--Magasin-->
-    {% if request.user.role == "MAGASIN" %}
+ {% if request.user.role == "MAGASIN" %}
       {% if magasins %}
       {% else %}
       <div class="attendance-title" >Semaine Null</div>
@@ -376,7 +427,7 @@
                 </li>
                 <li>
                   <label for="value">Chiffres d'affaires:</label>
-                  <input type="number" name="magasin_value" required>
+                  <input type="text" name="magasin_value" required>
                 </li>
                 
                 <div class="modal-footer">
@@ -391,7 +442,7 @@
       </div>
       {% endfor %}
     
-    {% endif %}
+    {% endif %} 
 
     
 
@@ -403,18 +454,43 @@
         
         // Update the value ID in the form
         $('#value-id').val(value_id);
+       
+      
       });
+      $('.value-admin').click(function() {
+        // Get the value ID for the selected value
+        var value_id = document.querySelector('.value-admin').innerHTML
+      
+        // Update the value ID in the form
+        $('#value-id').val(value_id);
+       
+      
+      });
+     
     });
+    
+
     var modal = document.querySelector('.modal')
+  
     var modal_toggle = document.querySelector('.value-a')
+    var admin_modal_toggle =  document.querySelector('.value-admin')
     var close = document.querySelector('.close')
     close.addEventListener('click', () => {
       modal.classList.remove('active')
     })
-    modal_toggle.addEventListener('click', () => {
-      // {% if request.user.role == "MAGASIN"%}
+
+   {% if request.user.role == "ADMIN" or request.user.is_staff or request.user.role == "DIRECTION" or request.user.role == "SUPERVISEUR"%}
+    admin_modal_toggle.addEventListener('click', () => {
+    
         modal.classList.add('active')
-      //{% endif %}
+      
+    })
+   {% endif %}
+    modal_toggle.addEventListener('click', () => {
+       {% if request.user.role == "MAGASIN"%}
+        modal.classList.add('active')
+        
+      {% endif %}
     })
     </script>
   </section>

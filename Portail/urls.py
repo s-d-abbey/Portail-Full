@@ -28,7 +28,7 @@ urlpatterns = [
     #Support
     path('support/', include('support.urls')),
 
-    #Paie
-    path('paie/', Appviews.paieView, name='paie'),
+    #RH
+    path('rh/', include('rh.urls')),
 
 ]

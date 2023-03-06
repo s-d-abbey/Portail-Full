@@ -35,8 +35,8 @@ SECRET_KEY = 'django-insecure-^%t#xc0m4729np+#@#ckmyfms%2&^aa6^-+8!n=!ji23623w7z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.1.1', '127.0.0.1','0.0.0.0', 'localhost', '192.1.200.183']
-#CSRF_TRUSTED_ORIGINS = ['https://b46c-197-251-205-124.eu.ngrok.io']
+ALLOWED_HOSTS = ['127.0.1.1', '127.0.0.1','0.0.0.0', 'localhost', '192.1.200.183', 'gieunifrais.fr']
+#CSRF_TRUSTED_ORIGINS = ['https://dc2a-197-251-205-124.eu.ngrok.io']
 
 
 # Application definition
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'authentication',
     'magboard',
     'support',
+    'rh',
     'phonenumber_field',
    
 ]
@@ -58,7 +59,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -140,7 +140,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
 #LANGUAGE_CODE = 'fr-fr'
-LANGUAGE_CODE = 'fr-fr'
+LANGUAGE_CODE = 'en-en'
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -166,3 +166,5 @@ AUTH_USER_MODEL = 'authentication.User'
 LOGIN_URL = 'login'
 
 LOGIN_REDIRECT_URL = 'home'
+
+SESSION_COOKIE_AGE = 1800

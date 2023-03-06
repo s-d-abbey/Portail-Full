@@ -39,20 +39,17 @@
     <img src="{% static 'images/icons8-go-back.png' %}" alt="">
   </a>
 </div>
-<div class="formulaire">
-  <h1>Ouvrir un ticket informatique</h1>
 
-  <!--
-    <form method="POST">
-      {% csrf_token %}
-      <label for="value">Enter Value:</label>
-      <input type="number" name="magasin_value" required>
-      <button type="submit" id="submitValue" onclick="func()">Submit</button>
-  </form>
-  -->
+<!-- Include iframe-resizer library -->
+<script src="https://cdn.jsdelivr.net/npm/iframe-resizer@4.3.1/js/iframeResizer.min.js"></script>
 
+<!-- Create iframe with ID "glpi-iframe" -->
+<!--<iframe id="glpi-iframe" src="http://192.1.200.183/glpi" scrolling="no"></iframe>-->
+<iframe src="http://192.1.200.183/glpi" width="100%" height="600" frameborder="0" target="_self"></iframe>
 
-</div>
+<!-- Initialize iframe-resizer on the iframe -->
+<script>
+  iFrameResize({ log: true }, '#glpi-iframe')
+</script>
 
-  <!-- <iframe src="http://192.1.200.183/glpi" frameborder="0"></iframe> -->
 {% endblock content %}

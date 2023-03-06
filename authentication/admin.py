@@ -28,6 +28,11 @@ class ComptabiliteAdmin(admin.ModelAdmin):
     ordering = ('username',)
 admin.site.register(Comptabilite,ComptabiliteAdmin)
 
+class JuristeAdmin(admin.ModelAdmin):
+    list_display = ('username','fullname','role','email','id',)
+    ordering = ('username',)
+admin.site.register(Juriste,JuristeAdmin)
+
 class RhAdmin(admin.ModelAdmin):
     list_display = ('username','fullname','role','email','id',)
     ordering = ('username',)

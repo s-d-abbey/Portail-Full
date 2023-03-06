@@ -134,8 +134,9 @@ def historiqueView(request):
         wlist = len(wvalue_list)
         try:
             magasin = magasin_obj
-            weekpag = weekpaginator.page(wpage)
+            
             w_magasin = w_paginator.page(page)
+            weekpag = weekpaginator.page(wpage)
             
         except PageNotAnInteger:
             magasin = paginator.page(1)
@@ -270,6 +271,47 @@ def voirView(request, magasin, no):
 
 def update_value(request, week):
     form = MagasinForm()
+    if request.user.role == "ADMIN" or request.user.is_staff or request.user.role == "DIRECTION" or request.user.is_staff or request.user.role == "SUPERVISEUR":
+        if request.method == "POST":
+            value_mag = request.POST.get('value_mag')
+            mag_d_value = Magasin_day_value.objects.get(magasin__user=value_mag, week=week)
+            value_id = request.POST.get('value_id')
+            mag_value = Magasin_value.objects.get(value=value_id, magasin__user=value_mag, week=week)
+            # mag_value = Magasin_value.objects.filter(value=value_id, magasin__user=value_mag, week=week)
+            print(mag_value)
+            if mag_value.week == mag_d_value.week:
+           
+                if mag_d_value.mon == mag_value.value:
+                    mag_d_value.mon = request.POST.get('magasin_value')
+                    mag_d_value.save()
+                if mag_d_value.tue == mag_value.value:
+                    mag_d_value.tue = request.POST.get('magasin_value')
+                    mag_d_value.save()
+                if mag_d_value.wed == mag_value.value:
+                    mag_d_value.wed = request.POST.get('magasin_value')
+                    mag_d_value.save()
+                if mag_d_value.thur == mag_value.value:
+                    mag_d_value.thur = request.POST.get('magasin_value')
+                    mag_d_value.save()
+                if mag_d_value.fri == mag_value.value:
+                    mag_d_value.fri = request.POST.get('magasin_value')
+                    mag_d_value.save()
+                if mag_d_value.sat == mag_value.value:
+                    mag_d_value.sat = request.POST.get('magasin_value')
+                    mag_d_value.save()
+                if mag_d_value.sun == mag_value.value:
+                    mag_d_value.sun = request.POST.get('magasin_value')
+                    mag_d_value.save()
+            mag_value.nom = request.POST.get('nom')
+            mag_value.prenom = request.POST.get('prenom')
+            mag_value.clients_no = request.POST.get('clients_no')
+            mag_value.value = request.POST.get('magasin_value')
+            mag_value.save()
+            
+            
+        current_page = request.GET.get('page', 1)
+
+        return redirect(reverse('historique') + '?page=' + str(current_page))
     if request.user.role == "MAGASIN":
         if request.method == "POST":
             mag_d_value = Magasin_day_value.objects.get(magasin__user=request.user, week=week)
@@ -306,7 +348,7 @@ def update_value(request, week):
             mag_value.save()
             
             
-        current_page = request.GET.get('page', 1)
+        current_page = request.GET.get('page', -1)
 
         return redirect(reverse('historique') + '?page=' + str(current_page))
     return render(request, 'voir.html', {'form': form})
