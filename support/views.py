@@ -3,7 +3,7 @@ from django.shortcuts import render
 import os
 from authentication.models import Magasin
 from django.http import FileResponse
-import requests
+
 from .forms import TicketForm
 # Create your views here.
 
