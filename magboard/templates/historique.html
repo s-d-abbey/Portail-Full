@@ -145,36 +145,43 @@
                             {% else %}
                             <td data-label="Lundi"><a class="value-admin" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.mon}}</a><input type="hidden" class="value-magasin" value="{{user_magasin.user}}"></td>
                             {% endif %}
+
                             {% if magasin.tue is None %}
                             <td data-label="Mardi"></td>
                             {% else %}
                             <td data-label="Mardi"><a class="value-admin href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.tue}}</a><input type="hidden" class="value-magasin" value="{{user_magasin.user}}"></td>
                             {% endif %}
+
                             {% if magasin.wed is None %}
                             <td data-label="Mercredi"></td>
                             {% else %}
                             <td data-label="Mercredi"><a class="value-admin" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.wed}}</a><input type="hidden" class="value-magasin" value="{{user_magasin.user}}"></td>
                             {% endif %}
+
                             {% if magasin.thur is None %}
                             <td data-label="Jeudi"></td>
                             {% else %}
                             <td data-label="Jeudi"><a class="value-admin" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.thur}}</a><input type="hidden" class="value-magasin" value="{{user_magasin.user}}"></td>
                             {% endif %}
+
                             {% if magasin.fri is None %}
                             <td data-label="Vendredi"></td>
                             {% else %}
                             <td data-label="Vendredi"><a class="value-admin" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.fri}}</a><input type="hidden" class="value-magasin" value="{{user_magasin.user}}"></td>
                             {% endif %}
+
                             {% if magasin.sat is None %}
                             <td data-label="Samedi"></td>
                             {% else %}
                             <td data-label="Samedi"><a class="value-admin" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.sat}}</a><input type="hidden" class="value-magasin" value="{{user_magasin.user}}"></td>
                             {% endif %}
+
                             {% if magasin.sun is None %}
                             <td data-label="Dimanche"></td>
                             {% else %}
                             <td data-label="Dimanche"><a class="value-admin" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.sun}} </a><input type="hidden" class="value-magasin" value="{{user_magasin.user}}"></td>
-                            {% endif %}                    
+                            {% endif %}  
+
                             {% for total in total_magasin_value %}
                               {% if total.week == magasin_w.week %}
                                 {% if total.mag == magasin.magasin.user %}
@@ -190,6 +197,7 @@
                        
                       {% endif %}
                     {% endif %}
+                    
                   {% endfor %}
                   <div class="modal fade" id="update-value-modal" tabindex="-1" role="dialog" aria-labelledby="update-value-modal-label" aria-hidden="true">
                     <div class="modal-dialog" role="document" style="display: flex; align-items: center; justify-content: center;">
@@ -275,172 +283,174 @@
     {% endif %}
 
     <!--Magasin-->
- {% if request.user.role == "MAGASIN" %}
-      {% if magasins %}
-      {% else %}
-      <div class="attendance-title" >Semaine Null</div>
+    {% if request.user.role == "MAGASIN" %}
+        {% if magasins %}
+        {% else %}
+        <div class="attendance-title" >Semaine Null</div>
 
-      <div class="attendance-list">
-        <h1>Historique hebdomadaire</h1>
-        <div class="table-container"> 
-          <table class="table">
-              <thead>
-                <tr>
-                    <th class="data-label"><h1>N°</h1></th>
-                    <th class="data-label"><h1>Magasin</h1></th>
-                    <th class="data-label"><h1>Lundi</h1></th>
-                    <th class="data-label"><h1>Mardi</h1></th>
-                    <th class="data-label"><h1>Mercredi</h1></th>
-                    <th class="data-label"><h1>Jeudi</h1></th>
-                    <th class="data-label"><h1>Vendredi</h1></th>
-                    <th class="data-label"><h1>Samedi</h1></th>
-                    <th class="data-label"><h1>Dimanche</h1></th>
-                    <th class="data-label"><h1>Total</h1></th>
-                    <th class="data-label"><h1>Details</h1></th>
-                </tr>
-              </thead>
-              <tbody>
-                  <tr>          
-                    <td scope="row" data-label="n°">{{request.user.code}}</td>
-                    <td scope="row" data-label="magasin">{{request.user.username}}</td> 
-                    <td data-label="{{magasin_v.name_of_day}}"></td>
-                    <td data-label="{{magasin_v.name_of_day}}"></td> 
-                    <td data-label="{{magasin_v.name_of_day}}"></td>             
-                    <td data-label="{{magasin_v.name_of_day}}"></td>          
-                    <td data-label="{{magasin_v.name_of_day}}"></td>
-                    <td data-label="{{magasin_v.name_of_day}}"></td>
-                    <td data-label="{{magasin_v.name_of_day}}"></td>           
-                    <td scope="row" data-label="magasin"></td>   
-                    <td data-label="View"><a href="#" class="btn">Voir</a></td>
+        <div class="attendance-list">
+          <h1>Historique hebdomadaire</h1>
+          <div class="table-container"> 
+            <table class="table">
+                <thead>
+                  <tr>
+                      <th class="data-label"><h1>N°</h1></th>
+                      <th class="data-label"><h1>Magasin</h1></th>
+                      <th class="data-label"><h1>Lundi</h1></th>
+                      <th class="data-label"><h1>Mardi</h1></th>
+                      <th class="data-label"><h1>Mercredi</h1></th>
+                      <th class="data-label"><h1>Jeudi</h1></th>
+                      <th class="data-label"><h1>Vendredi</h1></th>
+                      <th class="data-label"><h1>Samedi</h1></th>
+                      <th class="data-label"><h1>Dimanche</h1></th>
+                      <th class="data-label"><h1>Total</h1></th>
+                      <th class="data-label"><h1>Details</h1></th>
                   </tr>
-              </tbody>
-          </table>
-        </div>
-      </div>
-      {% endif %}
-      {% for magasin_w in magasin_weekly %}
-      <!-- <div class="attendance-title" >Semaine {{magasin.week}}</div> -->
-      <div class="attendance-list">
-        <h1>Historique hebdomadaire</h1>
-        <div class="table-container">
-          
-              <table class="table">
-                  <thead>
-                    <tr>
-                        <th class="data-label"><h1>N°</h1></th>
-                        <th class="data-label"><h1>Magasin</h1></th>
-                        <th class="data-label"><h1>Lundi</h1></th>
-                        <th class="data-label"><h1>Mardi</h1></th>
-                        <th class="data-label"><h1>Mercredi</h1></th>
-                        <th class="data-label"><h1>Jeudi</h1></th>
-                        <th class="data-label"><h1>Vendredi</h1></th>
-                        <th class="data-label"><h1>Samedi</h1></th>
-                        <th class="data-label"><h1>Dimanche</h1></th>
-                        <th class="data-label"><h1>Total</h1></th>
-                        <th class="data-label"><h1>Details</h1></th>
+                </thead>
+                <tbody>
+                    <tr>          
+                      <td scope="row" data-label="n°">{{request.user.code}}</td>
+                      <td scope="row" data-label="magasin">{{request.user.username}}</td> 
+                      <td data-label="{{magasin_v.name_of_day}}"></td>
+                      <td data-label="{{magasin_v.name_of_day}}"></td> 
+                      <td data-label="{{magasin_v.name_of_day}}"></td>             
+                      <td data-label="{{magasin_v.name_of_day}}"></td>          
+                      <td data-label="{{magasin_v.name_of_day}}"></td>
+                      <td data-label="{{magasin_v.name_of_day}}"></td>
+                      <td data-label="{{magasin_v.name_of_day}}"></td>           
+                      <td scope="row" data-label="magasin"></td>   
+                      <td data-label="View"><a href="#" class="btn">Voir</a></td>
                     </tr>
-                  </thead>
-                  {% for user in magasins %}
-                    {% for magasin in magasin_day_value %}
-                      {% if magasin.week == magasin_w.week %}
-                      <tbody>
-                        <tr>          
-                          <td scope="row" data-label="n°">{{magasin.magasin.code}}</td>
-                          <td scope="row" data-label="magasin">{{magasin.magasin.user}}</td>
-                          {% if magasin.mon is None %}
-                          <td data-label="Lundi"></td>
-                          {% else %}
-                          <td data-label="Lundi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.mon}}</a></td>
-                          {% endif %}
-                          {% if magasin.tue is None %}
-                          <td data-label="Mardi"></td>
-                          {% else %}
-                          <td data-label="Mardi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.tue}}</a></td>
-                          {% endif %}
-                          {% if magasin.wed is None %}
-                          <td data-label="Mercredi"></td>
-                          {% else %}
-                          <td data-label="Mercredi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.wed}}</a></td>
-                          {% endif %}
-                          {% if magasin.thur is None %}
-                          <td data-label="Jeudi"></td>
-                          {% else %}
-                          <td data-label="Jeudi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.thur}}</a></td>
-                          {% endif %}
-                          {% if magasin.fri is None %}
-                          <td data-label="Vendredi"></td>
-                          {% else %}
-                          <td data-label="Vendredi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.fri}}</a></td>
-                          {% endif %}
-                          {% if magasin.sat is None %}
-                          <td data-label="Samedi"></td>
-                          {% else %}
-                          <td data-label="Samedi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.sat}}</a></td>
-                          {% endif %}
-                          {% if magasin.sun is None %}
-                          <td data-label="Dimanche"></td>
-                          {% else %}
-                          <td data-label="Dimanche"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.sun}}</a></td>
-                          {% endif %}
-                          {% for total in total_magasin_value %}      
-                            {% if total.week == magasin_w.week %}         
-                            <td scope="row" data-label="magasin">{{total.value.value__sum}}</td>
-                            {% endif %}
-                          {% endfor %}
-                             <!--Voir btn is disabled-->   
-                          <td data-label="View"><a href="{% url 'voir' magasin.magasin.user magasin_w.week %}" class="btn disabled" style="pointer-events: none;">Voir</a></td>
-                        </tr>
-                    </tbody>
-                      {% endif %}
-                    {% endfor %}
-                  {% endfor %}
-              </table>
-            
-        </div>
-      </div>
-      <div class="modal fade" id="update-value-modal" tabindex="-1" role="dialog" aria-labelledby="update-value-modal-label" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="update-value-modal-label">Update Value</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <!-- Update Value Form -->
-              <form action="{% url 'update_value' magasin_w.week %}" method="post">
-                {% csrf_token %}
-                <input type="hidden" name="value_id" id="value-id">
-                <!-- Add form fields for updating the value here -->
-                <li>
-                  <label for="value">Nom:</label>
-                  <input type="text" name="nom" required>
-                </li>
-                <li>
-                  <label for="value">Prenom:</label>
-                  <input type="text" name="prenom" required>
-                </li>
-                <li>
-                  <label for="value">Nombre de clients:</label>
-                  <input type="number" name="clients_no" required>
-                </li>
-                <li>
-                  <label for="value">Chiffres d'affaires:</label>
-                  <input type="number" name="magasin_value" required>
-                </li>
-                
-                <div class="modal-footer">
-            
-                  <button type="submit" class="btn">Update Value</button>
-                </div>
-              </form>
-            </div>
-            
+                </tbody>
+            </table>
           </div>
         </div>
-      </div>
-      {% endfor %}
+        {% endif %}
+        {% for magasin_w in magasin_weekly %}
+          <!-- <div class="attendance-title" >Semaine {{magasin.week}}</div> -->
+          <div class="attendance-list">
+            <h1>Historique hebdomadaire</h1>
+            <div class="table-container">
+              
+                  <table class="table">
+                      <thead>
+                        <tr>
+                            <th class="data-label"><h1>N°</h1></th>
+                            <th class="data-label"><h1>Magasin</h1></th>
+                            <th class="data-label"><h1>Lundi</h1></th>
+                            <th class="data-label"><h1>Mardi</h1></th>
+                            <th class="data-label"><h1>Mercredi</h1></th>
+                            <th class="data-label"><h1>Jeudi</h1></th>
+                            <th class="data-label"><h1>Vendredi</h1></th>
+                            <th class="data-label"><h1>Samedi</h1></th>
+                            <th class="data-label"><h1>Dimanche</h1></th>
+                            <th class="data-label"><h1>Total</h1></th>
+                            <th class="data-label"><h1>Details</h1></th>
+                        </tr>
+                      </thead>
+                      {% for user in magasins %}
+                        {% for magasin in magasin_day_value %}
+                          {% if magasin.week == magasin_w.week %}
+                          
+                            <tbody>
+                              <tr>          
+                                <td scope="row" data-label="n°">{{magasin.magasin.code}}</td>
+                                <td scope="row" data-label="magasin">{{magasin.magasin.user}}</td>
+                                {% if magasin.mon is None %}
+                                <td data-label="Lundi"></td>
+                                {% else %}
+                                <td data-label="Lundi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.mon}}</a></td>
+                                {% endif %}
+                                {% if magasin.tue is None %}
+                                <td data-label="Mardi"></td>
+                                {% else %}
+                                <td data-label="Mardi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.tue}}</a></td>
+                                {% endif %}
+                                {% if magasin.wed is None %}
+                                <td data-label="Mercredi"></td>
+                                {% else %}
+                                <td data-label="Mercredi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.wed}}</a></td>
+                                {% endif %}
+                                {% if magasin.thur is None %}
+                                <td data-label="Jeudi"></td>
+                                {% else %}
+                                <td data-label="Jeudi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.thur}}</a></td>
+                                {% endif %}
+                                {% if magasin.fri is None %}
+                                <td data-label="Vendredi"></td>
+                                {% else %}
+                                <td data-label="Vendredi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.fri}}</a></td>
+                                {% endif %}
+                                {% if magasin.sat is None %}
+                                <td data-label="Samedi"></td>
+                                {% else %}
+                                <td data-label="Samedi"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.sat}}</a></td>
+                                {% endif %}
+                                {% if magasin.sun is None %}
+                                <td data-label="Dimanche"></td>
+                                {% else %}
+                                <td data-label="Dimanche"><a class="value-a" href="#" data-toggle="modal" data-target="#update-value-modal">{{magasin.sun}}</a></td>
+                                {% endif %}
+                                {% for total in total_magasin_value %}      
+                                  {% if total.week == magasin_w.week %}         
+                                  <td scope="row" data-label="magasin">{{total.value.value__sum}}</td>
+                                  {% endif %}
+                                {% endfor %}
+                                  <!--Voir btn is disabled-->   
+                                <td data-label="View"><a href="{% url 'voir' magasin.magasin.user magasin_w.week %}" class="btn disabled" style="pointer-events: none;">Voir</a></td>
+                              </tr>
+                          </tbody>
+                            
+                          {% endif %}
+                        {% endfor %}
+                      {% endfor %}
+                  </table>
+                
+            </div>
+          </div>
+          <div class="modal fade" id="update-value-modal" tabindex="-1" role="dialog" aria-labelledby="update-value-modal-label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="update-value-modal-label">Update Value</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <!-- Update Value Form -->
+                  <form action="{% url 'update_value' magasin_w.week %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="value_id" id="value-id">
+                    <!-- Add form fields for updating the value here -->
+                    <li>
+                      <label for="value">Nom:</label>
+                      <input type="text" name="nom" required>
+                    </li>
+                    <li>
+                      <label for="value">Prenom:</label>
+                      <input type="text" name="prenom" required>
+                    </li>
+                    <li>
+                      <label for="value">Nombre de clients:</label>
+                      <input type="number" name="clients_no" required>
+                    </li>
+                    <li>
+                      <label for="value">Chiffres d'affaires:</label>
+                      <input type="number" name="magasin_value" required>
+                    </li>
+                    
+                    <div class="modal-footer">
+                
+                      <button type="submit" class="btn">Update Value</button>
+                    </div>
+                  </form>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        {% endfor %}
     
     {% endif %} 
 
@@ -473,17 +483,19 @@
     var modal = document.querySelector('.modal')
   
     var modal_toggle = document.querySelector('.value-a')
-    var admin_modal_toggle =  document.querySelector('.value-admin')
+    var admin_modal_toggle =  document.querySelectorAll('.value-admin')
     var close = document.querySelector('.close')
     close.addEventListener('click', () => {
       modal.classList.remove('active')
     })
 
    {% if request.user.role == "ADMIN" or request.user.is_staff or request.user.role == "DIRECTION" or request.user.role == "SUPERVISEUR"%}
-    admin_modal_toggle.addEventListener('click', () => {
-    
-        modal.classList.add('active')
-      
+    admin_modal_toggle.forEach(function(item){
+      item.addEventListener('click', () => {
+          
+          modal.classList.add('active')
+        
+      })
     })
    {% endif %}
     modal_toggle.addEventListener('click', () => {

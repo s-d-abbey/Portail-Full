@@ -32,7 +32,7 @@
 <div class="formulaire">
     <h1>REMPLIR MON FORMULAIRE QUOTIDIEN</h1>
 
-    <form method="POST" id="form">
+    <form method="POST" id="form" name="form">
         {% csrf_token %}
         <li>
           <label for="value">Nom:</label>
@@ -47,8 +47,13 @@
           <input type="number" name="clients_no" required>
         </li>
         <li>
+          <label for="value">Date:</label>
+          <input id="datepicker" type="date" name="day" required>
+          <input type="hidden" name="weekdaynumber" id="weekday">
+        </li>
+        <li>
           <label for="value">Chiffres d'affaires:</label>
-          <input type="number" name="magasin_value" required>
+          <input type="text" name="magasin_value" required>
         </li>
         <button type="submit" id="submitValue" onclick="func()">Submit</button>
     </form>
@@ -64,6 +69,22 @@
     }
 
   }
- 
+ var now = new Date();
+ var day = ("0" + now.getDate()).slice(-2);
+ var month = ("0" + (now.getMonth() + 1)).slice(-2);
+ var today = now.getFullYear() +"-"+(month)+"-"+(day);
+ var date_picker = document.getElementById("datepicker");
+
+
+date_picker.addEventListener('change', ()=>{
+  if (document.forms["form"]["day"].value != ""){
+    new_date = new Date(date_picker.value);
+    dayer = (new_date.getDay())
+
+    weekday = document.getElementById("weekday")
+    weekday.value = dayer
+    
+ }
+})
 </script>
 {% endblock %}

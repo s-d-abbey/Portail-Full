@@ -21,6 +21,7 @@ def historiqueView(request):
         magasin_obj = Magasin_weekly.objects.filter(magasin__user=request.user)
         magasin_day_v = Magasin_day_value.objects.filter(magasin__user=request.user).order_by('magasin__code')
         mag_ori = Magasin.objects.filter(user=request.user)
+        print(mag_ori)
         page = request.GET.get('page', -1)
         days = Days.objects.all()
        
@@ -226,26 +227,66 @@ def formulaireView(request):
         prenom = request.POST.get('prenom')
         clients_no = request.POST.get('clients_no')
         value = request.POST.get('magasin_value')
-
-        if Magasin_value.objects.filter(magasin=magasin_u, day=date.today()).exists():
+        weekdaye = request.POST.get('weekdaynumber')
+        print(weekdaye)
+        day = request.POST.get('day')
+        print(day)
+        if Magasin_value.objects.filter(magasin=magasin_u, day=day).exists():
             messages.error(request, "Vous avez déjà soumis aujourd'hui",
                            extra_tags='alert alert-warning alert-dismissible fade show')
             return redirect('historique')
-        Magasin_value.objects.create(magasin=magasin_u, nom=nom, prenom=prenom, clients_no=clients_no, value=value )
-        if date.today().isoweekday() == 1:
-            Magasin_day_value.objects.create(magasin=magasin_u, mon=value)
-        if date.today().isoweekday() == 2:
-            Magasin_day_value.objects.create(magasin=magasin_u, tue=value)
-        if date.today().isoweekday() == 3:
-            Magasin_day_value.objects.create(magasin=magasin_u, wed=value)
-        if date.today().isoweekday() == 4:
-            Magasin_day_value.objects.create(magasin=magasin_u, thur=value)
-        if date.today().isoweekday() == 5:
-            Magasin_day_value.objects.create(magasin=magasin_u, fri=value)
-        if date.today().isoweekday() == 6:
-            Magasin_day_value.objects.create(magasin=magasin_u, sat=value)
-        if date.today().isoweekday() == 7:
-            Magasin_day_value.objects.create(magasin=magasin_u, sun=value)
+        
+        else:
+            Magasin_value.objects.create(magasin=magasin_u, nom=nom, prenom=prenom, clients_no=clients_no, value=value, day=day)
+        if weekdaye == "1":
+            if Magasin_day_value.objects.filter(magasin=magasin_u).exists():
+                mag = Magasin_day_value.objects.get(magasin=magasin_u,week=date.today().isocalendar()[1])
+                if mag.mon is None and mag.week == date.today().isocalendar()[1]:
+                    Magasin_day_value.objects.filter(magasin=magasin_u, week=date.today().isocalendar()[1]).update(mon=value)
+
+            Magasin_day_value.objects.update_or_create(magasin=magasin_u, mon=value, week=date.today().isocalendar()[1])
+        if weekdaye == "2":
+            if Magasin_day_value.objects.filter(magasin=magasin_u).exists():
+                mag = Magasin_day_value.objects.get(magasin=magasin_u, week=date.today().isocalendar()[1])
+                if mag.tue is None and mag.week == date.today().isocalendar()[1]:
+                    Magasin_day_value.objects.filter(magasin=magasin_u, week=date.today().isocalendar()[1]).update(tue=value)
+            Magasin_day_value.objects.update_or_create(magasin=magasin_u, tue=value, week=date.today().isocalendar()[1])
+            
+        if weekdaye == "3":
+            if Magasin_day_value.objects.filter(magasin=magasin_u).exists():
+                mag = Magasin_day_value.objects.get(magasin=magasin_u, week=date.today().isocalendar()[1])
+                if mag.wed is None and mag.week == date.today().isocalendar()[1]:
+                    Magasin_day_value.objects.filter(magasin=magasin_u, week=date.today().isocalendar()[1]).update(wed=value)
+
+            Magasin_day_value.objects.update_or_create(magasin=magasin_u, wed=value, week=date.today().isocalendar()[1])
+        if weekdaye == "4":
+            if Magasin_day_value.objects.filter(magasin=magasin_u).exists():
+                mag = Magasin_day_value.objects.get(magasin=magasin_u, week=date.today().isocalendar()[1])
+                if mag.thur is None and mag.week == date.today().isocalendar()[1]:
+                    Magasin_day_value.objects.filter(magasin=magasin_u, week=date.today().isocalendar()[1]).update(thur=value)
+
+            Magasin_day_value.objects.update_or_create(magasin=magasin_u, thur=value, week=date.today().isocalendar()[1])
+        if weekdaye == "5":
+            if Magasin_day_value.objects.filter(magasin=magasin_u).exists():
+                mag = Magasin_day_value.objects.get(magasin=magasin_u, week=date.today().isocalendar()[1])
+                if mag.fri is None and mag.week == date.today().isocalendar()[1]:
+                    Magasin_day_value.objects.filter(magasin=magasin_u, week=date.today().isocalendar()[1]).update(fri=value)
+
+            Magasin_day_value.objects.update_or_create(magasin=magasin_u, fri=value, week=date.today().isocalendar()[1])
+        if weekdaye == "6":
+            if Magasin_day_value.objects.filter(magasin=magasin_u).exists():
+                mag = Magasin_day_value.objects.get(magasin=magasin_u, week=date.today().isocalendar()[1])
+                if mag.sat is None and mag.week == date.today().isocalendar()[1]:
+                    Magasin_day_value.objects.filter(magasin=magasin_u, week=date.today().isocalendar()[1]).update(sat=value)
+
+            Magasin_day_value.objects.update_or_create(magasin=magasin_u, sat=value, week=date.today().isocalendar()[1])
+        if weekdaye == "0":
+            if Magasin_day_value.objects.filter(magasin=magasin_u).exists():
+                mag = Magasin_day_value.objects.get(magasin=magasin_u, week=date.today().isocalendar()[1])
+                if mag.sun is None and mag.week == date.today().isocalendar()[1]:
+                    Magasin_day_value.objects.filter(magasin=magasin_u, week=date.today().isocalendar()[1]).update(sun=value)
+
+            Magasin_day_value.objects.update_or_create(magasin=magasin_u, sun=value, week=date.today().isocalendar()[1])
         if Magasin_weekly.objects.filter(magasin=magasin_u, week=date.today().isocalendar()[1]).exists():
              return redirect('historique')
         Magasin_weekly.objects.create(magasin=magasin_u, value=value)
@@ -348,8 +389,9 @@ def update_value(request, week):
             
             
         current_page = request.GET.get('page', -1)
-
+     
         return redirect(reverse('historique') + '?page=' + str(current_page))
+        
     return render(request, 'voir.html', {'form': form})
 @login_required(login_url='login')
 def profileView(request):

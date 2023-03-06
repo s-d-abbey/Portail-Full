@@ -35,8 +35,8 @@ SECRET_KEY = 'django-insecure-^%t#xc0m4729np+#@#ckmyfms%2&^aa6^-+8!n=!ji23623w7z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.1.1', 'dc2a-197-251-205-124.eu.ngrok.io', '127.0.0.1','0.0.0.0', 'localhost', '192.1.200.183']
-CSRF_TRUSTED_ORIGINS = ['https://dc2a-197-251-205-124.eu.ngrok.io']
+ALLOWED_HOSTS = ['127.0.1.1', '127.0.0.1','0.0.0.0', 'localhost', '192.1.200.183']
+#CSRF_TRUSTED_ORIGINS = ['https://dc2a-197-251-205-124.eu.ngrok.io']
 
 
 # Application definition
@@ -94,19 +94,19 @@ WSGI_APPLICATION = 'Portail.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-    
     # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'portail_db',
-    #     'USER': 'postgres',
-    #     'PASSWORD': 'testing321',
-    #     'HOST': 'localhost',
-    #     'PORT': '5432',
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
+    
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'portail_db',
+        'USER': 'postgres',
+        'PASSWORD': 'testing321',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
 
 PASSWORD_HASHERS = [
@@ -140,7 +140,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
 #LANGUAGE_CODE = 'fr-fr'
-LANGUAGE_CODE = 'fr-fr'
+LANGUAGE_CODE = 'en-en'
 TIME_ZONE = 'UTC'
 
 USE_I18N = True

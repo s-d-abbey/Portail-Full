@@ -9,7 +9,7 @@ from authentication.models import Magasin
 # Create your models here.
 class Magasin_weekly(models.Model):
     magasin = models.ForeignKey(Magasin, on_delete=models.CASCADE)
-    value = models.IntegerField()
+    value = models.FloatField()
     week = models.IntegerField(default=date.today().isocalendar()[1])
     
     
@@ -23,13 +23,13 @@ class Magasin_day_value(models.Model):
     magasin = models.ForeignKey(Magasin,  on_delete=models.CASCADE)
     
     week = models.IntegerField(default=date.today().isocalendar()[1])
-    mon = models.IntegerField(blank=True, null=True, default=None)
-    tue = models.IntegerField(blank=True, null=True, default=None)
-    wed = models.IntegerField( blank=True, null=True, default=None)
-    thur = models.IntegerField(blank=True, null=True, default=None)
-    fri = models.IntegerField(blank=True, null=True, default=None)
-    sat = models.IntegerField( blank=True, null=True, default=None)
-    sun = models.IntegerField( blank=True, null=True, default=None)
+    mon = models.FloatField(blank=True, null=True, default=None)
+    tue = models.FloatField(blank=True, null=True, default=None)
+    wed = models.FloatField( blank=True, null=True, default=None)
+    thur = models.FloatField(blank=True, null=True, default=None)
+    fri = models.FloatField(blank=True, null=True, default=None)
+    sat = models.FloatField( blank=True, null=True, default=None)
+    sun = models.FloatField( blank=True, null=True, default=None)
 
     def __str__(self):
         return f"{self.magasin.user} - {self.week}"
@@ -39,7 +39,7 @@ class Magasin_value(models.Model):
     nom = models.CharField(max_length=50, blank=True)
     prenom = models.CharField(max_length=50, blank=True)
     clients_no = models.IntegerField(null=True)
-    value = models.IntegerField()
+    value = models.FloatField()
     day = models.DateField(default=date.today)
     week = models.IntegerField(default=date.today().isocalendar()[1])
     created_at = models.DateTimeField(auto_now_add=True, null=True)
